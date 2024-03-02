@@ -1,17 +1,17 @@
-package com.example.spring_ecommerce.models;
+package com.example.spring_ecommerce.Entities;
 
 
 
 
 
-public class Products{
+public class Product {
     private long id;
     private String name;
     private String created;
     private String price;
     private String description;
-    private ProductCategory categoryid;
-    private Review reviewid;
+    private ProductCategory category;
+    private Review review;
 
 
 //    @Id
