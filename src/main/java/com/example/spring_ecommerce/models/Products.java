@@ -1,10 +1,9 @@
 package com.example.spring_ecommerce.models;
 
 
-import jakarta.persistence.*;
 
-@Entity
-@Table(name = "products")
+
+
 public class Products{
     private long id;
     private String name;
@@ -15,11 +14,11 @@ public class Products{
     private Review reviewid;
 
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public long getId() {
-        return id;
-    }
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    public long getId() {
+//        return id;
+//    }
 
 
 
