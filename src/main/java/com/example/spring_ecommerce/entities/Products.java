@@ -1,4 +1,4 @@
-package com.example.spring_ecommerce.models;
+package com.example.spring_ecommerce.entities;
 
 
 
