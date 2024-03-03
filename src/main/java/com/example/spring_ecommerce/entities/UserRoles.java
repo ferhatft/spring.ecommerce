@@ -1,4 +1,4 @@
-package com.example.spring_ecommerce.Entities;
+package com.example.spring_ecommerce.entities;
 
 public class UserRoles {
     private  long  id;

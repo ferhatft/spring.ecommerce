@@ -10,7 +10,7 @@ import java.util.List;
 @RequestMapping("/api/orders")
 public class OrderController {
 
-    private OrderService orderService;
+    private final OrderService orderService;
 
 
     public OrderController(OrderService orderService) {
@@ -34,7 +34,7 @@ public class OrderController {
 
     @PutMapping("/{id}")
     public void update(@PathVariable int id, @RequestBody Order order) {
-        orderService.update(id,order);
+        orderService.update(id, order);
     }
 
     @DeleteMapping("/{id}")
