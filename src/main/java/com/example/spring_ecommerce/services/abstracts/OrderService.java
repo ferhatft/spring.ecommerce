@@ -11,7 +11,7 @@ public interface OrderService {
 
     void add(Order order);
 
-    void update(int id, Order order);
+    Order update(int id, Order order);
 
     void delete(int id);
 }

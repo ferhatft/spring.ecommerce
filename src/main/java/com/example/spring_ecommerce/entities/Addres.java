@@ -1,35 +1,32 @@
 package com.example.spring_ecommerce.entities;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Entity
-@Table(name = "districts")
+@Table(name = "addresses")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class District {
+public class Addres{
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private  int id;
 
 
-    @Column(name="name")
-    private String name;
-
+    @OneToOne()
+    @JoinColumn(name = "districtid")
+    private  District district;
 
     @ManyToOne()
-    @JoinColumn(name="cityid")
-    private City city;
+    @JoinColumn(name = "userid")
+    private  User user;
 
-    @OneToOne(mappedBy = "district")
-    @JsonIgnore
-    private Addres addres;
-
+    @Column(name = "address_detail")
+    private String address_detail;
 }

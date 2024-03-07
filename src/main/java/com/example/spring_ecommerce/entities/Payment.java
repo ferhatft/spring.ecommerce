@@ -6,30 +6,25 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Entity
-@Table(name = "districts")
+@Table(name = "payment")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class District {
-    @Column(name = "id")
+public class Payment {
+
+    @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private  int id;
+    private int id;
 
+    @Column(name = "payment_type")
+    private String payment_type;
 
-    @Column(name="name")
-    private String name;
+    @Column(name = "status")
+    private String status;
 
-
-    @ManyToOne()
-    @JoinColumn(name="cityid")
-    private City city;
-
-    @OneToOne(mappedBy = "district")
-    @JsonIgnore
-    private Addres addres;
-
+    @OneToOne(mappedBy = "paymentid")
+    @JsonIgnore()
+    private Order order;
 }

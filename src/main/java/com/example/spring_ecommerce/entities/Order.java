@@ -1,78 +1,39 @@
 package com.example.spring_ecommerce.entities;
 
-public class Order {
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.sql.Time;
+import java.time.LocalDateTime;
+
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "orders")
+@Data
+public class Order{
+
+    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private int id;
+
+
+    @Column(name = "order_date")
+    private LocalDateTime orderDate;
+
+
+    @Column(name = "userid")
     private int userId;
-    private int paymentId;
-    private int cardId;
-    private String orderDate;
-    private double grandTotal;
-    private String carrier;
 
-    public Order(int id, int userId, int paymentId, int cardId, String orderDate, double grandTotal, String carrier) {
-        this.id = id;
-        this.userId = userId;
-        this.paymentId = paymentId;
-        this.cardId = cardId;
-        this.orderDate = orderDate;
-        this.grandTotal = grandTotal;
-        this.carrier = carrier;
-    }
+    @Column(name = "shippmentid")
+    private int shippmentid;
 
-    public int getId() {
-        return id;
-    }
+    @OneToOne()
+    @JoinColumn(name="paymentid")
+    private Payment paymentid;
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public int getPaymentId() {
-        return paymentId;
-    }
-
-    public void setPaymentId(int paymentId) {
-        this.paymentId = paymentId;
-    }
-
-    public int getCardId() {
-        return cardId;
-    }
-
-    public void setCardId(int cardId) {
-        this.cardId = cardId;
-    }
-
-    public String getOrderDate() {
-        return orderDate;
-    }
-
-    public void setOrderDate(String orderDate) {
-        this.orderDate = orderDate;
-    }
-
-    public double getGrandTotal() {
-        return grandTotal;
-    }
-
-    public void setGrandTotal(double grandTotal) {
-        this.grandTotal = grandTotal;
-    }
-
-    public String getCarrier() {
-        return carrier;
-    }
-
-    public void setCarrier(String carrier) {
-        this.carrier = carrier;
-    }
 }

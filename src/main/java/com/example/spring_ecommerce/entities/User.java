@@ -1,5 +1,6 @@
 package com.example.spring_ecommerce.entities;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -44,5 +45,9 @@ public class User {
     @OneToOne(mappedBy = "user")
     @JsonIgnore
     private Supplier supplier;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private  List<Addres> addres;
 
 }

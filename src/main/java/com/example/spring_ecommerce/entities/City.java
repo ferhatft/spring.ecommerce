@@ -9,27 +9,27 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Entity
-@Table(name = "districts")
+@Table(name = "cities")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class District {
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class City {
+
+
+    @Column(name="id")
     @Id
-    private  int id;
-
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     @Column(name="name")
     private String name;
 
+    @ManyToOne
+    @JoinColumn(name="countryid")
+    private Country country;
 
-    @ManyToOne()
-    @JoinColumn(name="cityid")
-    private City city;
+    @OneToMany(mappedBy = "city")
+    @JsonIgnore // TODO: remove after dto
+    private List<District> districts;
 
-    @OneToOne(mappedBy = "district")
-    @JsonIgnore
-    private Addres addres;
 
 }

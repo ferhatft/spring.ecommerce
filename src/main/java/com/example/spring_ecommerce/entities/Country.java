@@ -1,5 +1,6 @@
 package com.example.spring_ecommerce.entities;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,28 +9,24 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+@Table(name = "countries")
 @Entity
-@Table(name = "districts")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class District {
-    @Column(name = "id")
+public class Country {
+
+    @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private  int id;
+    private int id;
 
-
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
 
 
-    @ManyToOne()
-    @JoinColumn(name="cityid")
-    private City city;
-
-    @OneToOne(mappedBy = "district")
-    @JsonIgnore
-    private Addres addres;
+    @OneToMany(mappedBy = "country")
+    @JsonIgnore // TODO: remove after dto
+    private List<City> cities;
 
 }

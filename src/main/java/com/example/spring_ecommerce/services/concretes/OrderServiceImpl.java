@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 @Service
 public class OrderServiceImpl implements OrderService {
 
-    private OrderRepository orderRepository;
+    private final OrderRepository orderRepository;
 
     public OrderServiceImpl(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
@@ -19,45 +19,42 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> getAll() {
-        return orderRepository.getAll();
+        return orderRepository.findAll();
     }
 
     @Override
     public Order getByID(int id) {
-        return orderRepository.getByID(id);
+        return orderRepository.findById(id).orElse(null);
     }
 
     @Override
     public void add(Order order) {
-        if (order.getGrandTotal() < 0) {
-            throw new IllegalArgumentException("Grand total can not be smaller than zero!");
-        }
-        if (order.getCarrier().isEmpty()) {
-            throw new IllegalArgumentException("Carrier cannot be left blank!");
-        }
-        if (!isValidDateFormat(order.getOrderDate())) {
+        if (!isValidDateFormat(String.valueOf(order.getOrderDate()))) {
             throw new IllegalArgumentException("Date is not in valid dd-mm-yyyy format");
         }
-        orderRepository.add(order);
+        orderRepository.save(order);
     }
 
     @Override
-    public void update(int id, Order order) {
-        if (order.getGrandTotal() < 0) {
-            throw new IllegalArgumentException("Grand total can not be smaller than zero!");
+    public Order update(int id, Order updatedOrder) {
+        Order existingOrder = orderRepository.findById(id).orElse(null);
+        if (existingOrder != null) {
+
+            // Update fields of existingOrder with the fields of updatedOrder
+            existingOrder.setId(updatedOrder.getId());
+            existingOrder.setOrderDate(updatedOrder.getOrderDate());
+            // Set other fields as needed
+
+            // Save the updated order
+            return orderRepository.save(existingOrder);
         }
-        if (order.getCarrier().isEmpty()) {
-            throw new IllegalArgumentException("Carrier cannot be left blank!");
-        }
-        if (!isValidDateFormat(order.getOrderDate())) {
-            throw new IllegalArgumentException("Date is not in valid dd-mm-yyyy format");
-        }
-        orderRepository.update(id, order);
+        return null; // or throw an exception indicating order not found
     }
 
     @Override
     public void delete(int id) {
-        orderRepository.delete(id);
+        orderRepository.deleteById(id);
+
     }
 
     public static boolean isValidDateFormat(String dateString) {
