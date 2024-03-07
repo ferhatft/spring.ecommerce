@@ -1,7 +1,6 @@
 package com.example.spring_ecommerce.controllers;
 
-import com.example.spring_ecommerce.entities.Addres;
-import com.example.spring_ecommerce.entities.Product;
+import com.example.spring_ecommerce.entities.Address;
 import com.example.spring_ecommerce.services.abstracts.AddressService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -17,22 +16,22 @@ public class AddressController {
 
 
     @GetMapping
-    public List<Addres> get() {
+    public List<Address> get() {
         return addressService.getAll();
     }
 
     @GetMapping("/{id}")
-    public Optional<Addres> getByID(@PathVariable int id) {
+    public Optional<Address> getByID(@PathVariable int id) {
         return addressService.getByID(id);
     }
 
     @PostMapping
-    public void add(@RequestBody Addres addres) {
+    public void add(@RequestBody Address addres) {
         addressService.add(addres);
     }
 
     @PutMapping
-    public void update(@RequestBody Addres addres) {
+    public void update(@RequestBody Address addres) {
         addressService.update(addres);
     }
 

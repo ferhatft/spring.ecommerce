@@ -17,4 +17,15 @@ public class Address {
     @Id
     private  int id;
 
+
+    @ManyToOne()
+    @JoinColumn(name = "districtid")
+    private  District district;
+
+    @ManyToOne()
+    @JoinColumn(name = "userid")
+    private  User user;
+
+    @Column(name = "address_detail")
+    private String address_detail;
 }

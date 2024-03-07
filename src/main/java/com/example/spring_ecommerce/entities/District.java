@@ -30,6 +30,6 @@ public class District {
 
     @OneToMany(mappedBy = "district")
     @JsonIgnore
-    private List<Addres> addres;
+    private List<Address> addres;
 
 }

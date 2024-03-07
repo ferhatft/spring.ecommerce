@@ -1,8 +1,6 @@
 package com.example.spring_ecommerce.controllers;
 
-import com.example.spring_ecommerce.entities.Addres;
 import com.example.spring_ecommerce.entities.City;
-import com.example.spring_ecommerce.repositories.abstracts.CityRepository;
 import com.example.spring_ecommerce.services.abstracts.CityService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;

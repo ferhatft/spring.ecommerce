@@ -48,7 +48,7 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     @JsonIgnore
-    private  List<Addres> addres;
+    private  List<Address> addres;
 
     @OneToMany(mappedBy = "user")
     @JsonIgnore

@@ -1,18 +1,18 @@
 package com.example.spring_ecommerce.services.abstracts;
 
-import com.example.spring_ecommerce.entities.Addres;
+import com.example.spring_ecommerce.entities.Address;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface AddressService {
-    List<Addres> getAll();
+    List<Address> getAll();
 
-    Optional<Addres> getByID(int id);
+    Optional<Address> getByID(int id);
 
-    void add(Addres addres);
+    void add(Address addres);
 
-    void update(Addres addres);
+    void update(Address addres);
 
     void delete(int id);
 }
