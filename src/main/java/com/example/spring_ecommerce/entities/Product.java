@@ -34,9 +34,9 @@ public class Product {
     @JoinColumn(name = "categoryid")
     private Category category;
 
-//    @ManyToOne()
-//    @JoinColumn(name = "brandid")
-//    private Brand brand;
+    @ManyToOne()
+    @JoinColumn(name = "brandid")
+    private Brand brand;
 
     @OneToMany(mappedBy = "product")
     @JsonIgnore
@@ -49,5 +49,14 @@ public class Product {
     @OneToMany(mappedBy = "product")
     @JsonIgnore
     private List<SupplierProduct> supplierProducts;
+
+    @OneToMany(mappedBy = "product")
+    @JsonIgnore
+    private List<OrderDetails>  orderDetails;
+
+
+    @OneToMany(mappedBy = "product")
+    @JsonIgnore
+    private List<Likes>  likes;
 
 }

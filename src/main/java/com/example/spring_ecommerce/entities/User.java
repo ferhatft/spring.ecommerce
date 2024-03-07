@@ -50,4 +50,8 @@ public class User {
     @JsonIgnore
     private  List<Addres> addres;
 
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<Likes> likes;
+
 }

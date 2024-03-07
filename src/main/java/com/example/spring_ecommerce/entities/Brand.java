@@ -6,37 +6,24 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Time;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
+@Table(name = "brands")
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "orders")
 @Data
-public class Order{
-
+public class Brand {
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private int id;
 
-    @Column(name = "order_date")
-    private LocalDateTime orderDate;
+    @Column(name = "name")
+    private String name;
 
-    @OneToOne()
-    @JoinColumn(name="paymentid")
-    private Payment paymentid;
-
-    @OneToOne
-    @JoinColumn(name = "shippmentid")
-    private Shipment shippmentid;
-
-
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "brand")
     @JsonIgnore
-    private List<OrderDetails>  orderDetails;
-
+    private List<Product> product;
 
 }
