@@ -39,4 +39,7 @@ public class Order{
     private List<OrderDetails>  orderDetails;
 
 
+    @ManyToOne()
+    @JoinColumn(name = "userid" )
+    private User user;
 }

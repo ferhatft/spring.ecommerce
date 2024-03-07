@@ -19,7 +19,7 @@ public class Addres{
     private  int id;
 
 
-    @OneToOne()
+    @ManyToOne()
     @JoinColumn(name = "districtid")
     private  District district;
 

@@ -54,4 +54,9 @@ public class User {
     @JsonIgnore
     private List<Likes> likes;
 
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<Order> orders;
+
 }

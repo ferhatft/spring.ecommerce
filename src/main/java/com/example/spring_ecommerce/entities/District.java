@@ -28,8 +28,8 @@ public class District {
     @JoinColumn(name="cityid")
     private City city;
 
-    @OneToOne(mappedBy = "district")
+    @OneToMany(mappedBy = "district")
     @JsonIgnore
-    private Addres addres;
+    private List<Addres> addres;
 
 }
