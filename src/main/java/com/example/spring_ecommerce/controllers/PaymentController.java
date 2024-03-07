@@ -1,5 +1,6 @@
 package com.example.spring_ecommerce.controllers;
 
+import com.example.spring_ecommerce.entities.Country;
 import com.example.spring_ecommerce.entities.Likes;
 import com.example.spring_ecommerce.entities.Payment;
 import com.example.spring_ecommerce.repositories.abstracts.PaymentRepository;
@@ -27,5 +28,15 @@ public class PaymentController {
     @PostMapping
     public void add(@RequestBody Payment payment){
         paymentService.add(payment);
+    }
+
+    @PutMapping
+    public void update(@RequestBody Payment payment) {
+        paymentService.update(payment);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable int id) {
+        paymentService.delete(id);
     }
 }
