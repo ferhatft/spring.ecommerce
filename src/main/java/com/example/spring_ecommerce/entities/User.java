@@ -1,58 +1,48 @@
 package com.example.spring_ecommerce.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+
+@Table(name = "users")
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private int id;
-    private int roleId;
-    private int addressId;
-    private String name;
-    private String mail;
 
-    public User(int id, int roleId, int addressId, String name, String mail) {
-        this.id = id;
-        this.roleId = roleId;
-        this.addressId = addressId;
-        this.name = name;
-        this.mail = mail;
-    }
+    @Column(name = "first_name")
+    private String firstName;
 
-    public int getId() {
-        return id;
-    }
+    @Column(name = "last_name")
+    private String lastName;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    @Column(name = "email")
+    private String email;
 
-    public int getRoleId() {
-        return roleId;
-    }
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<Review> reviews;
 
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
-    }
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<UserRole> userRoles;
 
-    public int getAddressId() {
-        return addressId;
-    }
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<Wishlist> wishlists;
 
-    public void setAddressId(int addressId) {
-        this.addressId = addressId;
-    }
+    @OneToOne(mappedBy = "user")
+    @JsonIgnore
+    private Supplier supplier;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
 }

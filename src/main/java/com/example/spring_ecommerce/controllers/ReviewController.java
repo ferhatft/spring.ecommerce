@@ -1,50 +1,42 @@
 package com.example.spring_ecommerce.controllers;
 
-import com.example.spring_ecommerce.entities.Order;
-import com.example.spring_ecommerce.entities.Product;
 import com.example.spring_ecommerce.entities.Review;
-import com.example.spring_ecommerce.entities.User;
-import com.example.spring_ecommerce.services.abstracts.OrderService;
-import com.example.spring_ecommerce.services.abstracts.ProductService;
 import com.example.spring_ecommerce.services.abstracts.ReviewService;
-import jdk.jfr.Category;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/reviews/")
+@RequestMapping("/api/reviews")
+@AllArgsConstructor
 public class ReviewController {
-
     private ReviewService reviewService;
 
-    public ReviewController(ReviewService reviewService) {
-        this.reviewService = reviewService;
-    }
-
-    @PostMapping(value = "/create/")
-    public void add(@RequestBody Review review, Product product, User user) {
-        reviewService.add(review, product,user);
-    }
-
     @GetMapping
-    public List<Review> get()
-    {
+    public List<Review> get() {
         return reviewService.getAll();
     }
 
-    @PutMapping(value = "/update/{id}")
-    public Review update(@PathVariable("id") int id, @RequestBody Review review, Product product,User user) {
-
-        Review updatedReview;
-        updatedReview = reviewService.update(id, review, product,user);
-
-        return updatedReview;
+    @GetMapping("/{id}")
+    public Optional<Review> getByID(@PathVariable int id) {
+        return reviewService.getByID(id);
     }
 
+    @PostMapping
+    public void add(@RequestBody Review review) {
+        reviewService.add(review);
+    }
 
-    @DeleteMapping("{id}")
+    @PutMapping
+    public void update(@RequestBody Review review) {
+        reviewService.update(review);
+    }
+
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable int id) {
         reviewService.delete(id);
     }
 }
+

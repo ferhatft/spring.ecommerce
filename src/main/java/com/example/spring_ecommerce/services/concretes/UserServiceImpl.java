@@ -3,63 +3,46 @@ package com.example.spring_ecommerce.services.concretes;
 import com.example.spring_ecommerce.entities.User;
 import com.example.spring_ecommerce.repositories.abstracts.UserRepository;
 import com.example.spring_ecommerce.services.abstracts.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
+@AllArgsConstructor
 @Service
 public class UserServiceImpl implements UserService {
-    private UserRepository userRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private UserRepository userRepository;
 
     @Override
     public List<User> getAll() {
-        return userRepository.getAll();
+        return userRepository.findAll();
     }
 
     @Override
-    public User getByID(int id) {
-        return userRepository.getByID(id);
+    public Optional<User> getByID(int id) {
+        return userRepository.findById(id);
     }
 
     @Override
     public void add(User user) {
-        if (user.getName().isEmpty()) {
-            throw new IllegalArgumentException("Name cannot be left blank!");
+        if (user.getFirstName().isEmpty() || user.getLastName().isEmpty() || user.getEmail().isEmpty()) {
+            throw new IllegalArgumentException("Name, surname and email cannot be left blank!");
         }
-        if (user.getMail().isEmpty() || isExist(user)) {
-            throw new IllegalArgumentException("Please provide a unique mail address!");
-        }
-        userRepository.add(user);
+        userRepository.save(user);
     }
 
     @Override
-    public void update(int id, User user) {
-        if (user.getName().isEmpty()) {
-            throw new IllegalArgumentException("Name cannot be left blank!");
+    public void update(User user) {
+        if (user.getFirstName().isEmpty() || user.getLastName().isEmpty() || user.getEmail().isEmpty()) {
+            throw new IllegalArgumentException("Name, surname and email cannot be left blank!");
         }
-        if (user.getMail().isEmpty()) {
-            throw new IllegalArgumentException("Please provide a unique mail address!");
-        }
-        userRepository.update(id, user);
+        userRepository.save(user);
     }
 
     @Override
     public void delete(int id) {
-        userRepository.delete(id);
+        userRepository.deleteById(id);
     }
-
-    public boolean isExist(User user) {
-        List<User> existingUsers = userRepository.getAll();
-        for (User userTemp : existingUsers) {
-            if (userTemp.getMail().equals(user.getMail())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
 }

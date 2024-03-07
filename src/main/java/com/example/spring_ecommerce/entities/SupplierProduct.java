@@ -5,29 +5,23 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Table(name = "reviews")
+@Table(name = "supplier_products")
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Review {
+public class SupplierProduct {
 
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private int id;
 
-    @Column(name = "detail")
-    private  String detail;
+    @ManyToOne()
+    @JoinColumn(name = "supplierid")
+    private Supplier supplier;
 
     @ManyToOne()
     @JoinColumn(name = "productid")
     private Product product;
-
-    @ManyToOne()
-    @JoinColumn(name = "userid")
-    private User user;
-
-
-
 }

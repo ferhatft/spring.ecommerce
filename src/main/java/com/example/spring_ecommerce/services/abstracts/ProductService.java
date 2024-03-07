@@ -1,20 +1,19 @@
 package com.example.spring_ecommerce.services.abstracts;
 
 import com.example.spring_ecommerce.entities.Product;
-import com.example.spring_ecommerce.entities.Review;
-import jdk.jfr.Category;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductService {
-
     List<Product> getAll();
 
-    Product getByID(int id);
+    Optional<Product> getByID(int id);
 
-    Product update(int id, Product product, Category category, Review review);
+    void add(Product product);
+
+    void update(Product product);
 
     void delete(int id);
 
-    void add(Product product, Category category);
 }

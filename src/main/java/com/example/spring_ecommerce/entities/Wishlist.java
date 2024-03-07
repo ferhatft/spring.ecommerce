@@ -5,29 +5,31 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Table(name = "reviews")
+import java.time.LocalDateTime;
+
+@Table(name = "wishlists")
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Review {
+public class Wishlist {
 
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private int id;
 
-    @Column(name = "detail")
-    private  String detail;
+    @Column(name = "edit_date")
+    private LocalDateTime editDate;
 
-    @ManyToOne()
-    @JoinColumn(name = "productid")
-    private Product product;
+    @Column(name = "current_price")
+    private double currentPrice;
 
     @ManyToOne()
     @JoinColumn(name = "userid")
     private User user;
 
-
-
+    @ManyToOne()
+    @JoinColumn(name = "productid")
+    private Product product;
 }
