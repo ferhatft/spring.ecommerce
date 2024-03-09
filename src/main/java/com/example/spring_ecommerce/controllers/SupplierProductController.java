@@ -2,6 +2,7 @@ package com.example.spring_ecommerce.controllers;
 
 import com.example.spring_ecommerce.entities.SupplierProduct;
 import com.example.spring_ecommerce.services.abstracts.SupplierProductService;
+import com.example.spring_ecommerce.services.dtos.supplierproduct.requests.AddSupplierProductRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,8 +25,8 @@ public class SupplierProductController {
     }
 
     @PostMapping
-    public void add(@RequestBody SupplierProduct supplierProduct) {
-        supplierProductService.add(supplierProduct);
+    public void add(@RequestBody AddSupplierProductRequest addSupplierProductRequest) {
+        supplierProductService.add(addSupplierProductRequest);
     }
 
     @PutMapping

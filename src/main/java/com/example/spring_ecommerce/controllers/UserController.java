@@ -2,6 +2,7 @@ package com.example.spring_ecommerce.controllers;
 
 import com.example.spring_ecommerce.entities.User;
 import com.example.spring_ecommerce.services.abstracts.UserService;
+import com.example.spring_ecommerce.services.dtos.user.requests.AddUserRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,8 +26,8 @@ public class UserController {
     }
 
     @PostMapping
-    public void add(@RequestBody User user) {
-        userService.add(user);
+    public void add(@RequestBody AddUserRequest addUserRequest) {
+        userService.add(addUserRequest);
     }
 
     @PutMapping

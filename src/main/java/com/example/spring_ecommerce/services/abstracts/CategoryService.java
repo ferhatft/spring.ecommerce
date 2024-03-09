@@ -1,6 +1,7 @@
 package com.example.spring_ecommerce.services.abstracts;
 
 import com.example.spring_ecommerce.entities.Category;
+import com.example.spring_ecommerce.services.dtos.category.requests.AddCategoryRequest;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,7 +11,7 @@ public interface CategoryService {
 
     Optional<Category> getByID(int id);
 
-    void add(Category category);
+    void add(AddCategoryRequest addCategoryRequest);
 
     void update(Category category);
 

@@ -2,6 +2,7 @@ package com.example.spring_ecommerce.controllers;
 
 import com.example.spring_ecommerce.entities.Category;
 import com.example.spring_ecommerce.services.abstracts.CategoryService;
+import com.example.spring_ecommerce.services.dtos.category.requests.AddCategoryRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,8 +26,8 @@ public class CategoryController {
     }
 
     @PostMapping
-    public void add(@RequestBody Category category) {
-        categoryService.add(category);
+    public void add(@RequestBody AddCategoryRequest addCategoryRequest) {
+        categoryService.add(addCategoryRequest);
     }
 
     @PutMapping

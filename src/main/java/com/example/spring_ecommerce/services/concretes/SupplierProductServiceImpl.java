@@ -1,8 +1,11 @@
 package com.example.spring_ecommerce.services.concretes;
 
+import com.example.spring_ecommerce.entities.Product;
+import com.example.spring_ecommerce.entities.Supplier;
 import com.example.spring_ecommerce.entities.SupplierProduct;
 import com.example.spring_ecommerce.repositories.abstracts.SupplierProductRepository;
 import com.example.spring_ecommerce.services.abstracts.SupplierProductService;
+import com.example.spring_ecommerce.services.dtos.supplierproduct.requests.AddSupplierProductRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +29,14 @@ public class SupplierProductServiceImpl implements SupplierProductService {
     }
 
     @Override
-    public void add(SupplierProduct supplierProduct) {
+    public void add(AddSupplierProductRequest addSupplierProductRequest) {
+        Supplier supplier = new Supplier();
+        supplier.setId(addSupplierProductRequest.getSupplierId());
+        Product product = new Product();
+        product.setId(addSupplierProductRequest.getProductId());
+        SupplierProduct supplierProduct = new SupplierProduct();
+        supplierProduct.setSupplier(supplier);
+        supplierProduct.setProduct(product);
         supplierProductRepository.save(supplierProduct);
     }
 

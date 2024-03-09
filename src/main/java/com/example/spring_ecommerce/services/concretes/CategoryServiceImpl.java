@@ -3,6 +3,7 @@ package com.example.spring_ecommerce.services.concretes;
 import com.example.spring_ecommerce.entities.Category;
 import com.example.spring_ecommerce.repositories.abstracts.CategoryRepository;
 import com.example.spring_ecommerce.services.abstracts.CategoryService;
+import com.example.spring_ecommerce.services.dtos.category.requests.AddCategoryRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,10 +27,9 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void add(Category category) {
-        if (category.getName().isEmpty()) {
-            throw new IllegalArgumentException("Name cannot be left blank!");
-        }
+    public void add(AddCategoryRequest addCategoryRequest) {
+        Category category = new Category();
+        category.setName(addCategoryRequest.getName());
         categoryRepository.save(category);
     }
 

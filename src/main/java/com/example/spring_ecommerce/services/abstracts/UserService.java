@@ -1,6 +1,7 @@
 package com.example.spring_ecommerce.services.abstracts;
 
 import com.example.spring_ecommerce.entities.User;
+import com.example.spring_ecommerce.services.dtos.user.requests.AddUserRequest;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,7 +11,7 @@ public interface UserService {
 
     Optional<User> getByID(int id);
 
-    void add(User user);
+    void add(AddUserRequest addUserRequest);
 
     void update(User user);
 

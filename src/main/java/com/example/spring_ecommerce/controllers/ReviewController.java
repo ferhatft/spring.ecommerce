@@ -2,6 +2,7 @@ package com.example.spring_ecommerce.controllers;
 
 import com.example.spring_ecommerce.entities.Review;
 import com.example.spring_ecommerce.services.abstracts.ReviewService;
+import com.example.spring_ecommerce.services.dtos.review.requests.AddReviewRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,8 +26,8 @@ public class ReviewController {
     }
 
     @PostMapping
-    public void add(@RequestBody Review review) {
-        reviewService.add(review);
+    public void add(@RequestBody AddReviewRequest addReviewRequest) {
+        reviewService.add(addReviewRequest);
     }
 
     @PutMapping

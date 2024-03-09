@@ -3,6 +3,7 @@ package com.example.spring_ecommerce.services.concretes;
 import com.example.spring_ecommerce.entities.User;
 import com.example.spring_ecommerce.repositories.abstracts.UserRepository;
 import com.example.spring_ecommerce.services.abstracts.UserService;
+import com.example.spring_ecommerce.services.dtos.user.requests.AddUserRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,10 +27,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void add(User user) {
-        if (user.getFirstName().isEmpty() || user.getLastName().isEmpty() || user.getEmail().isEmpty()) {
-            throw new IllegalArgumentException("Name, surname and email cannot be left blank!");
-        }
+    public void add(AddUserRequest addUserRequest) {
+        User user = new User();
+        user.setFirstName(addUserRequest.getFirstName());
+        user.setLastName(addUserRequest.getLastName());
+        user.setEmail(addUserRequest.getEmail());
         userRepository.save(user);
     }
 

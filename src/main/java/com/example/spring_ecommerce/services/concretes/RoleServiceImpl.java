@@ -3,6 +3,7 @@ package com.example.spring_ecommerce.services.concretes;
 import com.example.spring_ecommerce.entities.Role;
 import com.example.spring_ecommerce.repositories.abstracts.RoleRepository;
 import com.example.spring_ecommerce.services.abstracts.RoleService;
+import com.example.spring_ecommerce.services.dtos.role.requests.AddRoleRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,10 +27,9 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public void add(Role role) {
-        if (role.getName().isEmpty()) {
-            throw new IllegalArgumentException("Name cannot be left blank!");
-        }
+    public void add(AddRoleRequest addRoleRequest) {
+        Role role = new Role();
+        role.setName(addRoleRequest.getName());
         roleRepository.save(role);
     }
 

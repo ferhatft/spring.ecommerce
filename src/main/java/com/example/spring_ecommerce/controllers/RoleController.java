@@ -2,6 +2,7 @@ package com.example.spring_ecommerce.controllers;
 
 import com.example.spring_ecommerce.entities.Role;
 import com.example.spring_ecommerce.services.abstracts.RoleService;
+import com.example.spring_ecommerce.services.dtos.role.requests.AddRoleRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,8 +25,8 @@ public class RoleController {
     }
 
     @PostMapping
-    public void add(@RequestBody Role role) {
-        roleService.add(role);
+    public void add(@RequestBody AddRoleRequest addRoleRequest) {
+        roleService.add(addRoleRequest);
     }
 
     @PutMapping

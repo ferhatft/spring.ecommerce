@@ -2,6 +2,7 @@ package com.example.spring_ecommerce.controllers;
 
 import com.example.spring_ecommerce.entities.Wishlist;
 import com.example.spring_ecommerce.services.abstracts.WishlistService;
+import com.example.spring_ecommerce.services.dtos.wishlist.requests.AddWishlistRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,8 +26,8 @@ public class WishlistController {
     }
 
     @PostMapping
-    public void add(@RequestBody Wishlist wishlist) {
-        wishlistService.add(wishlist);
+    public void add(@RequestBody AddWishlistRequest addWishlistRequest) {
+        wishlistService.add(addWishlistRequest);
     }
 
     @PutMapping

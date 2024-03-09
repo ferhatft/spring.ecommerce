@@ -1,8 +1,9 @@
 package com.example.spring_ecommerce.services.concretes;
 
-import com.example.spring_ecommerce.entities.UserRole;
+import com.example.spring_ecommerce.entities.*;
 import com.example.spring_ecommerce.repositories.abstracts.UserRoleRepository;
 import com.example.spring_ecommerce.services.abstracts.UserRoleService;
+import com.example.spring_ecommerce.services.dtos.userrole.requests.AddUserRoleRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +27,14 @@ public class UserRoleServiceImpl implements UserRoleService {
     }
 
     @Override
-    public void add(UserRole userRole) {
+    public void add(AddUserRoleRequest addUserRoleRequest) {
+        User user = new User();
+        user.setId(addUserRoleRequest.getUserId());
+        Role role = new Role();
+        role.setId(addUserRoleRequest.getRoleId());
+        UserRole userRole= new UserRole();
+        userRole.setUser(user);
+        userRole.setRole(role);
         userRoleRepository.save(userRole);
     }
 
