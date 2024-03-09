@@ -3,6 +3,7 @@ package com.example.spring_ecommerce.controllers;
 import com.example.spring_ecommerce.entities.Wishlist;
 import com.example.spring_ecommerce.services.abstracts.WishlistService;
 import com.example.spring_ecommerce.services.dtos.wishlist.requests.AddWishlistRequest;
+import com.example.spring_ecommerce.services.dtos.wishlist.requests.UpdateWishlistRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,8 +32,8 @@ public class WishlistController {
     }
 
     @PutMapping
-    public void update(@RequestBody Wishlist wishlist) {
-        wishlistService.update(wishlist);
+    public void update(@RequestBody UpdateWishlistRequest updateWishlistRequest) {
+        wishlistService.update(updateWishlistRequest);
     }
 
     @DeleteMapping("/{id}")

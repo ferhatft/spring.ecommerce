@@ -1,9 +1,11 @@
 package com.example.spring_ecommerce.services.concretes;
 
 import com.example.spring_ecommerce.entities.Role;
+import com.example.spring_ecommerce.entities.UserRole;
 import com.example.spring_ecommerce.repositories.abstracts.RoleRepository;
 import com.example.spring_ecommerce.services.abstracts.RoleService;
 import com.example.spring_ecommerce.services.dtos.role.requests.AddRoleRequest;
+import com.example.spring_ecommerce.services.dtos.role.requests.UpdateRoleRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -34,10 +36,15 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public void update(Role role) {
-        if (role.getName().isEmpty()) {
-            throw new IllegalArgumentException("Name cannot be left blank!");
+    public void update(UpdateRoleRequest updateRoleRequest) {
+        Role role = roleRepository.findById(updateRoleRequest.getId()).orElse(null);
+
+        if (role == null) {
+            // TODO Handle role not found (e.g., log a warning or throw a custom exception later)
+            return;
         }
+
+        role.setName(updateRoleRequest.getName());
         roleRepository.save(role);
     }
 

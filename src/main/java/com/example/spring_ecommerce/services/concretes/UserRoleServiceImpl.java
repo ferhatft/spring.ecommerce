@@ -4,6 +4,7 @@ import com.example.spring_ecommerce.entities.*;
 import com.example.spring_ecommerce.repositories.abstracts.UserRoleRepository;
 import com.example.spring_ecommerce.services.abstracts.UserRoleService;
 import com.example.spring_ecommerce.services.dtos.userrole.requests.AddUserRoleRequest;
+import com.example.spring_ecommerce.services.dtos.userrole.requests.UpdateUserRoleRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +40,20 @@ public class UserRoleServiceImpl implements UserRoleService {
     }
 
     @Override
-    public void update(UserRole userRole) {
+    public void update(UpdateUserRoleRequest updateUserRoleRequest) {
+        UserRole userRole = userRoleRepository.findById(updateUserRoleRequest.getId()).orElse(null);
+
+        if (userRole == null) {
+            // TODO Handle userRole not found (e.g., log a warning or throw a custom exception later)
+            return;
+        }
+
+        User user = new User();
+        user.setId(updateUserRoleRequest.getUserId());
+        Role role = new Role();
+        role.setId(updateUserRoleRequest.getRoleId());
+        userRole.setUser(user);
+        userRole.setRole(role);
         userRoleRepository.save(userRole);
     }
 

@@ -3,6 +3,7 @@ package com.example.spring_ecommerce.controllers;
 import com.example.spring_ecommerce.entities.Review;
 import com.example.spring_ecommerce.services.abstracts.ReviewService;
 import com.example.spring_ecommerce.services.dtos.review.requests.AddReviewRequest;
+import com.example.spring_ecommerce.services.dtos.review.requests.UpdateReviewRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,8 +32,8 @@ public class ReviewController {
     }
 
     @PutMapping
-    public void update(@RequestBody Review review) {
-        reviewService.update(review);
+    public void update(@RequestBody UpdateReviewRequest updateReviewRequest) {
+        reviewService.update(updateReviewRequest);
     }
 
     @DeleteMapping("/{id}")

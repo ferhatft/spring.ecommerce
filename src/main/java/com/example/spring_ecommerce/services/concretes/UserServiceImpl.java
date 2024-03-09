@@ -4,11 +4,14 @@ import com.example.spring_ecommerce.entities.User;
 import com.example.spring_ecommerce.repositories.abstracts.UserRepository;
 import com.example.spring_ecommerce.services.abstracts.UserService;
 import com.example.spring_ecommerce.services.dtos.user.requests.AddUserRequest;
+import com.example.spring_ecommerce.services.dtos.user.requests.UpdateUserRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @AllArgsConstructor
 @Service
@@ -36,12 +39,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void update(User user) {
-        if (user.getFirstName().isEmpty() || user.getLastName().isEmpty() || user.getEmail().isEmpty()) {
-            throw new IllegalArgumentException("Name, surname and email cannot be left blank!");
+    public void update(UpdateUserRequest updateUserRequest) {
+        User user = userRepository.findById(updateUserRequest.getId()).orElse(null);
+
+        if (user == null) {
+            // TODO Handle user not found (e.g., log a warning or throw a custom exception later)
+            return;
         }
+
+        user.setFirstName(updateUserRequest.getFirstName());
+        user.setLastName(updateUserRequest.getLastName());
+        user.setEmail(updateUserRequest.getEmail());
+
         userRepository.save(user);
     }
+
 
     @Override
     public void delete(int id) {

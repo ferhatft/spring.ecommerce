@@ -3,6 +3,7 @@ package com.example.spring_ecommerce.controllers;
 import com.example.spring_ecommerce.entities.SupplierProduct;
 import com.example.spring_ecommerce.services.abstracts.SupplierProductService;
 import com.example.spring_ecommerce.services.dtos.supplierproduct.requests.AddSupplierProductRequest;
+import com.example.spring_ecommerce.services.dtos.supplierproduct.requests.UpdateSupplierProductRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,8 +31,8 @@ public class SupplierProductController {
     }
 
     @PutMapping
-    public void update(@RequestBody SupplierProduct supplierProduct) {
-        supplierProductService.update(supplierProduct);
+    public void update(@RequestBody UpdateSupplierProductRequest updateSupplierProductRequest) {
+        supplierProductService.update(updateSupplierProductRequest);
     }
 
     @DeleteMapping("/{id}")

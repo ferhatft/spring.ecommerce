@@ -4,6 +4,7 @@ import com.example.spring_ecommerce.entities.*;
 import com.example.spring_ecommerce.repositories.abstracts.ReviewRepository;
 import com.example.spring_ecommerce.services.abstracts.ReviewService;
 import com.example.spring_ecommerce.services.dtos.review.requests.AddReviewRequest;
+import com.example.spring_ecommerce.services.dtos.review.requests.UpdateReviewRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -40,10 +41,21 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public void update(Review review) {
-        if (review.getDetail().isEmpty()) {
-            throw new IllegalArgumentException("Review text cannot be left blank!");
+    public void update(UpdateReviewRequest updateReviewRequest) {
+        Review review = reviewRepository.findById(updateReviewRequest.getId()).orElse(null);
+
+        if (review == null) {
+            // TODO Handle review not found (e.g., log a warning or throw a custom exception later)
+            return;
         }
+
+        Product product = new Product();
+        product.setId(updateReviewRequest.getProductId());
+        User user = new User();
+        user.setId(updateReviewRequest.getUserId());
+        review.setDetail(updateReviewRequest.getDetail());
+        review.setProduct(product);
+        review.setUser(user);
         reviewRepository.save(review);
     }
 

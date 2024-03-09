@@ -3,6 +3,7 @@ package com.example.spring_ecommerce.controllers;
 import com.example.spring_ecommerce.entities.User;
 import com.example.spring_ecommerce.services.abstracts.UserService;
 import com.example.spring_ecommerce.services.dtos.user.requests.AddUserRequest;
+import com.example.spring_ecommerce.services.dtos.user.requests.UpdateUserRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,8 +32,8 @@ public class UserController {
     }
 
     @PutMapping
-    public void update(@RequestBody User user) {
-        userService.update(user);
+    public void update(@RequestBody UpdateUserRequest updateUserRequest) {
+        userService.update(updateUserRequest);
     }
 
     @DeleteMapping("/{id}")

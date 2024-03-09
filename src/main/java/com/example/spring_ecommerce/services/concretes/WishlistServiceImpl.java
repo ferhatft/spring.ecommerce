@@ -5,7 +5,9 @@ import com.example.spring_ecommerce.entities.User;
 import com.example.spring_ecommerce.entities.Wishlist;
 import com.example.spring_ecommerce.repositories.abstracts.WishlistRepository;
 import com.example.spring_ecommerce.services.abstracts.WishlistService;
+import com.example.spring_ecommerce.services.dtos.user.requests.UpdateUserRequest;
 import com.example.spring_ecommerce.services.dtos.wishlist.requests.AddWishlistRequest;
+import com.example.spring_ecommerce.services.dtos.wishlist.requests.UpdateWishlistRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -43,10 +45,22 @@ public class WishlistServiceImpl implements WishlistService {
     }
 
     @Override
-    public void update(Wishlist wishlist) {
-        if (wishlist.getCurrentPrice() < 0) {
-            throw new IllegalArgumentException("Current price can not be smaller than zero!");
+    public void update(UpdateWishlistRequest updateWishlistRequest) {
+        Wishlist wishlist = wishlistRepository.findById(updateWishlistRequest.getId()).orElse(null);
+
+        if (wishlist == null) {
+            // TODO Handle wishlist not found (e.g., log a warning or throw a custom exception later)
+            return;
         }
+
+        User user = new User();
+        user.setId(updateWishlistRequest.getUserId());
+        Product product=new Product();
+        product.setId(updateWishlistRequest.getProductId());
+        wishlist.setEditDate(updateWishlistRequest.getEditDate());
+        wishlist.setCurrentPrice(updateWishlistRequest.getCurrentPrice());
+        wishlist.setUser(user);
+        wishlist.setProduct(product);
         wishlistRepository.save(wishlist);
     }
 

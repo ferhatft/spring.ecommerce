@@ -3,6 +3,7 @@ package com.example.spring_ecommerce.controllers;
 import com.example.spring_ecommerce.entities.Role;
 import com.example.spring_ecommerce.services.abstracts.RoleService;
 import com.example.spring_ecommerce.services.dtos.role.requests.AddRoleRequest;
+import com.example.spring_ecommerce.services.dtos.role.requests.UpdateRoleRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,8 +31,8 @@ public class RoleController {
     }
 
     @PutMapping
-    public void update(@RequestBody Role role) {
-        roleService.update(role);
+    public void update(@RequestBody UpdateRoleRequest updateRoleRequest) {
+        roleService.update(updateRoleRequest);
     }
 
     @DeleteMapping("/{id}")

@@ -3,6 +3,7 @@ package com.example.spring_ecommerce.controllers;
 import com.example.spring_ecommerce.entities.Category;
 import com.example.spring_ecommerce.services.abstracts.CategoryService;
 import com.example.spring_ecommerce.services.dtos.category.requests.AddCategoryRequest;
+import com.example.spring_ecommerce.services.dtos.category.requests.UpdateCategoryRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,8 +32,8 @@ public class CategoryController {
     }
 
     @PutMapping
-    public void update(@RequestBody Category category) {
-        categoryService.update(category);
+    public void update(@RequestBody UpdateCategoryRequest updateCategoryRequest) {
+        categoryService.update(updateCategoryRequest);
     }
 
     @DeleteMapping("/{id}")

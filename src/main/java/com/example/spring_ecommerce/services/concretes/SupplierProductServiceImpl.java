@@ -3,9 +3,11 @@ package com.example.spring_ecommerce.services.concretes;
 import com.example.spring_ecommerce.entities.Product;
 import com.example.spring_ecommerce.entities.Supplier;
 import com.example.spring_ecommerce.entities.SupplierProduct;
+import com.example.spring_ecommerce.entities.UserRole;
 import com.example.spring_ecommerce.repositories.abstracts.SupplierProductRepository;
 import com.example.spring_ecommerce.services.abstracts.SupplierProductService;
 import com.example.spring_ecommerce.services.dtos.supplierproduct.requests.AddSupplierProductRequest;
+import com.example.spring_ecommerce.services.dtos.supplierproduct.requests.UpdateSupplierProductRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +43,19 @@ public class SupplierProductServiceImpl implements SupplierProductService {
     }
 
     @Override
-    public void update(SupplierProduct supplierProduct) {
+    public void update(UpdateSupplierProductRequest updateSupplierProductRequest) {
+        SupplierProduct supplierProduct = supplierProductRepository.findById(updateSupplierProductRequest.getId()).orElse(null);
+
+        if (supplierProduct == null) {
+            // TODO Handle supplierProduct not found (e.g., log a warning or throw a custom exception later)
+            return;
+        }
+        Supplier supplier = new Supplier();
+        supplier.setId(updateSupplierProductRequest.getSupplierId());
+        Product product = new Product();
+        product.setId(updateSupplierProductRequest.getProductId());
+        supplierProduct.setSupplier(supplier);
+        supplierProduct.setProduct(product);
         supplierProductRepository.save(supplierProduct);
     }
 
