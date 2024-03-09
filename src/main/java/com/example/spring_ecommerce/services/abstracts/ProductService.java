@@ -1,6 +1,7 @@
 package com.example.spring_ecommerce.services.abstracts;
 
 import com.example.spring_ecommerce.entities.Product;
+import com.example.spring_ecommerce.services.dto.request.AddProductRequest;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,7 +11,7 @@ public interface ProductService {
 
     Optional<Product> getByID(int id);
 
-    void add(Product product);
+    void add(AddProductRequest request);
 
     void update(Product product);
 

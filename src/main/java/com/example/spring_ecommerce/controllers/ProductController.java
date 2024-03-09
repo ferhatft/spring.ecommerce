@@ -2,6 +2,8 @@ package com.example.spring_ecommerce.controllers;
 
 import com.example.spring_ecommerce.entities.Product;
 import com.example.spring_ecommerce.services.abstracts.ProductService;
+import com.example.spring_ecommerce.services.dto.request.AddProductRequest;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,8 +27,8 @@ public class ProductController {
     }
 
     @PostMapping
-    public void add(@RequestBody Product product) {
-        productService.add(product);
+    public void add(@RequestBody @Valid AddProductRequest addProductRequest) {
+        productService.add(addProductRequest);
     }
 
     @PutMapping
