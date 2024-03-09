@@ -3,7 +3,6 @@ package com.example.spring_ecommerce.services.concretes;
 import com.example.spring_ecommerce.entities.Product;
 import com.example.spring_ecommerce.entities.Supplier;
 import com.example.spring_ecommerce.entities.SupplierProduct;
-import com.example.spring_ecommerce.entities.UserRole;
 import com.example.spring_ecommerce.repositories.abstracts.SupplierProductRepository;
 import com.example.spring_ecommerce.services.abstracts.SupplierProductService;
 import com.example.spring_ecommerce.services.dtos.supplierproduct.requests.AddSupplierProductRequest;

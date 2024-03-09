@@ -1,7 +1,6 @@
 package com.example.spring_ecommerce.services.concretes;
 
 import com.example.spring_ecommerce.entities.Category;
-import com.example.spring_ecommerce.entities.User;
 import com.example.spring_ecommerce.repositories.abstracts.CategoryRepository;
 import com.example.spring_ecommerce.services.abstracts.CategoryService;
 import com.example.spring_ecommerce.services.dtos.category.requests.AddCategoryRequest;

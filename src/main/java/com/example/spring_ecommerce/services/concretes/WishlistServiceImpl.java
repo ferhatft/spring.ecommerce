@@ -5,7 +5,6 @@ import com.example.spring_ecommerce.entities.User;
 import com.example.spring_ecommerce.entities.Wishlist;
 import com.example.spring_ecommerce.repositories.abstracts.WishlistRepository;
 import com.example.spring_ecommerce.services.abstracts.WishlistService;
-import com.example.spring_ecommerce.services.dtos.user.requests.UpdateUserRequest;
 import com.example.spring_ecommerce.services.dtos.wishlist.requests.AddWishlistRequest;
 import com.example.spring_ecommerce.services.dtos.wishlist.requests.UpdateWishlistRequest;
 import lombok.AllArgsConstructor;

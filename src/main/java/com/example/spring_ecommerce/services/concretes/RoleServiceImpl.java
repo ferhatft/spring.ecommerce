@@ -1,7 +1,6 @@
 package com.example.spring_ecommerce.services.concretes;
 
 import com.example.spring_ecommerce.entities.Role;
-import com.example.spring_ecommerce.entities.UserRole;
 import com.example.spring_ecommerce.repositories.abstracts.RoleRepository;
 import com.example.spring_ecommerce.services.abstracts.RoleService;
 import com.example.spring_ecommerce.services.dtos.role.requests.AddRoleRequest;
