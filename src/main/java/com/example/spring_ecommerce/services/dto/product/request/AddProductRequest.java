@@ -1,4 +1,4 @@
-package com.example.spring_ecommerce.services.dto.request;
+package com.example.spring_ecommerce.services.dto.product.request;
 
 import com.example.spring_ecommerce.entities.Brand;
 import com.example.spring_ecommerce.entities.Category;

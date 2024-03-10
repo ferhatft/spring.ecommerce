@@ -7,7 +7,7 @@ import com.example.spring_ecommerce.entities.Category;
 import com.example.spring_ecommerce.entities.Product;
 import com.example.spring_ecommerce.repositories.abstracts.ProductRepository;
 import com.example.spring_ecommerce.services.abstracts.ProductService;
-import com.example.spring_ecommerce.services.dto.request.AddProductRequest;
+import com.example.spring_ecommerce.services.dto.product.request.AddProductRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,18 +1,21 @@
 package com.example.spring_ecommerce.services.abstracts;
 
 import com.example.spring_ecommerce.entities.Country;
+import com.example.spring_ecommerce.services.dto.country.request.AddCountryRequest;
+import com.example.spring_ecommerce.services.dto.country.request.UpdateCountryRequest;
+import com.example.spring_ecommerce.services.dto.country.response.ListCountryResponse;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface CountryService {
-    List<Country> getAll();
+    List<ListCountryResponse> getAll();
 
     Optional<Country> getByID(int id);
 
-    void add(Country country);
+    void add(AddCountryRequest request);
 
-    void update(Country country);
+    void update(UpdateCountryRequest request);
 
     void delete(int id);
 }

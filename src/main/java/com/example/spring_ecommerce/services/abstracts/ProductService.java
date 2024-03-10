@@ -1,7 +1,7 @@
 package com.example.spring_ecommerce.services.abstracts;
 
 import com.example.spring_ecommerce.entities.Product;
-import com.example.spring_ecommerce.services.dto.request.AddProductRequest;
+import com.example.spring_ecommerce.services.dto.product.request.AddProductRequest;
 
 import java.util.List;
 import java.util.Optional;

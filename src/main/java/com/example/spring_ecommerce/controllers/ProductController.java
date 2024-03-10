@@ -2,7 +2,7 @@ package com.example.spring_ecommerce.controllers;
 
 import com.example.spring_ecommerce.entities.Product;
 import com.example.spring_ecommerce.services.abstracts.ProductService;
-import com.example.spring_ecommerce.services.dto.request.AddProductRequest;
+import com.example.spring_ecommerce.services.dto.product.request.AddProductRequest;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
