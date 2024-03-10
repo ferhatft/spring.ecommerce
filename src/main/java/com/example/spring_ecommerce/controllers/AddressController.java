@@ -2,6 +2,10 @@ package com.example.spring_ecommerce.controllers;
 
 import com.example.spring_ecommerce.entities.Address;
 import com.example.spring_ecommerce.services.abstracts.AddressService;
+import com.example.spring_ecommerce.services.dto.address.request.AddAddressRequest;
+import com.example.spring_ecommerce.services.dto.address.request.UpdateAddressRequest;
+import com.example.spring_ecommerce.services.dto.address.response.ListAddressResponse;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +20,7 @@ public class AddressController {
 
 
     @GetMapping
-    public List<Address> get() {
+    public List<ListAddressResponse> get() {
         return addressService.getAll();
     }
 
@@ -26,13 +30,13 @@ public class AddressController {
     }
 
     @PostMapping
-    public void add(@RequestBody Address addres) {
-        addressService.add(addres);
+    public void add(@RequestBody @Valid AddAddressRequest request) {
+        addressService.add(request);
     }
 
     @PutMapping
-    public void update(@RequestBody Address addres) {
-        addressService.update(addres);
+    public void update(@RequestBody @Valid UpdateAddressRequest request) {
+        addressService.update(request);
     }
 
     @DeleteMapping("/{id}")

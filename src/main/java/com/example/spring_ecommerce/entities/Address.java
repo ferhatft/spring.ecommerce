@@ -17,7 +17,6 @@ public class Address {
     @Id
     private  int id;
 
-
     @ManyToOne()
     @JoinColumn(name = "districtid")
     private  District district;
