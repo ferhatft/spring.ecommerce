@@ -1,11 +1,16 @@
 package com.example.spring_ecommerce.services.concretes;
 
-import com.example.spring_ecommerce.entities.Review;
+import com.example.spring_ecommerce.entities.*;
 import com.example.spring_ecommerce.repositories.abstracts.ReviewRepository;
 import com.example.spring_ecommerce.services.abstracts.ReviewService;
+import com.example.spring_ecommerce.services.dtos.review.requests.AddReviewRequest;
+import com.example.spring_ecommerce.services.dtos.review.requests.UpdateReviewRequest;
+import com.example.spring_ecommerce.services.dtos.review.responses.GetReviewResponse;
+import com.example.spring_ecommerce.services.dtos.review.responses.ReviewListResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,28 +21,65 @@ public class ReviewServiceImpl implements ReviewService {
     private ReviewRepository reviewRepository;
 
     @Override
-    public List<Review> getAll() {
-        return reviewRepository.findAll();
-    }
+    public List<ReviewListResponse> getAll() {
+        List<Review> reviews = reviewRepository.findAll();
+        List<ReviewListResponse> response = new ArrayList<>();
 
-    @Override
-    public Optional<Review> getByID(int id) {
-        return reviewRepository.findById(id);
-    }
-
-    @Override
-    public void add(Review review) {
-        if (review.getDetail().isEmpty()) {
-            throw new IllegalArgumentException("Review text cannot be left blank!");
+        for (Review review: reviews) {
+            ReviewListResponse dto = new ReviewListResponse(
+                    review.getId(),
+                    review.getDetail(),
+                    review.getProduct().getName(),
+                    review.getUser().getFirstName(),
+                    review.getUser().getLastName());
+            response.add(dto);
         }
+
+        return response;
+    }
+
+    @Override
+    public Optional<GetReviewResponse> getByID(int id) {
+        Review review = reviewRepository.findById(id).orElse(null);
+
+        assert review != null;
+        return Optional.of(new GetReviewResponse(
+                review.getId(),
+                review.getDetail(),
+                review.getProduct().getName(),
+                review.getUser().getFirstName(),
+                review.getUser().getLastName()));
+    }
+
+    @Override
+    public void add(AddReviewRequest addReviewRequest) {
+        Product product = new Product();
+        product.setId(addReviewRequest.getProductId());
+        User user = new User();
+        user.setId(addReviewRequest.getUserId());
+        Review review = new Review();
+        review.setDetail(addReviewRequest.getDetail());
+        review.setProduct(product);
+        review.setUser(user);
         reviewRepository.save(review);
     }
 
     @Override
-    public void update(Review review) {
-        if (review.getDetail().isEmpty()) {
-            throw new IllegalArgumentException("Review text cannot be left blank!");
+    public void update(UpdateReviewRequest updateReviewRequest) {
+        Review review = reviewRepository.findById(updateReviewRequest.getId()).orElse(null);
+
+        if (review == null) {
+            // TODO Handle review not found (e.g., log a warning or throw a custom exception later)
+            return;
         }
+
+        Product product = new Product();
+        product.setId(updateReviewRequest.getProductId());
+        User user = new User();
+        user.setId(updateReviewRequest.getUserId());
+        review.setDetail(updateReviewRequest.getDetail());
+        review.setProduct(product);
+        review.setUser(user);
         reviewRepository.save(review);
     }
 

@@ -1,19 +1,23 @@
 package com.example.spring_ecommerce.services.abstracts;
 
 import com.example.spring_ecommerce.entities.Review;
+import com.example.spring_ecommerce.services.dtos.review.requests.AddReviewRequest;
+import com.example.spring_ecommerce.services.dtos.review.requests.UpdateReviewRequest;
+import com.example.spring_ecommerce.services.dtos.review.responses.GetReviewResponse;
+import com.example.spring_ecommerce.services.dtos.review.responses.ReviewListResponse;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface ReviewService {
 
-    List<Review> getAll();
+    List<ReviewListResponse> getAll();
 
-    Optional<Review> getByID(int id);
+    Optional<GetReviewResponse> getByID(int id);
 
-    void add(Review review);
+    void add(AddReviewRequest addReviewRequest);
 
-    void update(Review review);
+    void update(UpdateReviewRequest updateReviewRequest);
 
     void delete(int id);
 

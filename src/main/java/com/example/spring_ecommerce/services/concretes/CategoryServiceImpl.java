@@ -3,9 +3,14 @@ package com.example.spring_ecommerce.services.concretes;
 import com.example.spring_ecommerce.entities.Category;
 import com.example.spring_ecommerce.repositories.abstracts.CategoryRepository;
 import com.example.spring_ecommerce.services.abstracts.CategoryService;
+import com.example.spring_ecommerce.services.dtos.category.requests.AddCategoryRequest;
+import com.example.spring_ecommerce.services.dtos.category.requests.UpdateCategoryRequest;
+import com.example.spring_ecommerce.services.dtos.category.responses.CategoryListResponse;
+import com.example.spring_ecommerce.services.dtos.category.responses.GetCategoryResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,28 +21,47 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryRepository categoryRepository;
 
     @Override
-    public List<Category> getAll() {
-        return categoryRepository.findAll();
-    }
+    public List<CategoryListResponse> getAll() {
+        List<Category> categories = categoryRepository.findAll();
+        List<CategoryListResponse> response = new ArrayList<>();
 
-    @Override
-    public Optional<Category> getByID(int id) {
-        return categoryRepository.findById(id);
-    }
-
-    @Override
-    public void add(Category category) {
-        if (category.getName().isEmpty()) {
-            throw new IllegalArgumentException("Name cannot be left blank!");
+        for (Category category: categories) {
+            CategoryListResponse dto = new CategoryListResponse(
+                    category.getId(),
+                    category.getName());
+            response.add(dto);
         }
+
+        return response;
+    }
+
+    @Override
+    public Optional<GetCategoryResponse> getByID(int id) {
+        Category category = categoryRepository.findById(id).orElse(null);
+
+        assert category != null;
+        return Optional.of(new GetCategoryResponse(
+                category.getId(),
+                category.getName()));
+    }
+
+    @Override
+    public void add(AddCategoryRequest addCategoryRequest) {
+        Category category = new Category();
+        category.setName(addCategoryRequest.getName());
         categoryRepository.save(category);
     }
 
     @Override
-    public void update(Category category) {
-        if (category.getName().isEmpty()) {
-            throw new IllegalArgumentException("Name cannot be left blank!");
+    public void update(UpdateCategoryRequest updateCategoryRequest) {
+        Category category = categoryRepository.findById(updateCategoryRequest.getId()).orElse(null);
+
+        if (category == null) {
+            // TODO Handle category not found (e.g., log a warning or throw a custom exception later)
+            return;
         }
+
+        category.setName(updateCategoryRequest.getName());
         categoryRepository.save(category);
     }
 

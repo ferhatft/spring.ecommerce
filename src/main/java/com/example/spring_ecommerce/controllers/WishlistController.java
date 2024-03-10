@@ -2,6 +2,10 @@ package com.example.spring_ecommerce.controllers;
 
 import com.example.spring_ecommerce.entities.Wishlist;
 import com.example.spring_ecommerce.services.abstracts.WishlistService;
+import com.example.spring_ecommerce.services.dtos.wishlist.requests.AddWishlistRequest;
+import com.example.spring_ecommerce.services.dtos.wishlist.requests.UpdateWishlistRequest;
+import com.example.spring_ecommerce.services.dtos.wishlist.responses.GetWishlistResponse;
+import com.example.spring_ecommerce.services.dtos.wishlist.responses.WishlistListResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,23 +19,23 @@ public class WishlistController {
     private WishlistService wishlistService;
 
     @GetMapping
-    public List<Wishlist> get() {
+    public List<WishlistListResponse> get() {
         return wishlistService.getAll();
     }
 
     @GetMapping("/{id}")
-    public Optional<Wishlist> getByID(@PathVariable int id) {
+    public Optional<GetWishlistResponse> getByID(@PathVariable int id) {
         return wishlistService.getByID(id);
     }
 
     @PostMapping
-    public void add(@RequestBody Wishlist wishlist) {
-        wishlistService.add(wishlist);
+    public void add(@RequestBody AddWishlistRequest addWishlistRequest) {
+        wishlistService.add(addWishlistRequest);
     }
 
     @PutMapping
-    public void update(@RequestBody Wishlist wishlist) {
-        wishlistService.update(wishlist);
+    public void update(@RequestBody UpdateWishlistRequest updateWishlistRequest) {
+        wishlistService.update(updateWishlistRequest);
     }
 
     @DeleteMapping("/{id}")
