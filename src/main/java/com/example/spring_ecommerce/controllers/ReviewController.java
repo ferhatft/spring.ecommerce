@@ -4,6 +4,8 @@ import com.example.spring_ecommerce.entities.Review;
 import com.example.spring_ecommerce.services.abstracts.ReviewService;
 import com.example.spring_ecommerce.services.dtos.review.requests.AddReviewRequest;
 import com.example.spring_ecommerce.services.dtos.review.requests.UpdateReviewRequest;
+import com.example.spring_ecommerce.services.dtos.review.responses.GetReviewResponse;
+import com.example.spring_ecommerce.services.dtos.review.responses.ReviewListResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,12 +19,12 @@ public class ReviewController {
     private ReviewService reviewService;
 
     @GetMapping
-    public List<Review> get() {
+    public List<ReviewListResponse> get() {
         return reviewService.getAll();
     }
 
     @GetMapping("/{id}")
-    public Optional<Review> getByID(@PathVariable int id) {
+    public Optional<GetReviewResponse> getByID(@PathVariable int id) {
         return reviewService.getByID(id);
     }
 

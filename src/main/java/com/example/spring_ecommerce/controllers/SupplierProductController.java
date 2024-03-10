@@ -4,6 +4,8 @@ import com.example.spring_ecommerce.entities.SupplierProduct;
 import com.example.spring_ecommerce.services.abstracts.SupplierProductService;
 import com.example.spring_ecommerce.services.dtos.supplierproduct.requests.AddSupplierProductRequest;
 import com.example.spring_ecommerce.services.dtos.supplierproduct.requests.UpdateSupplierProductRequest;
+import com.example.spring_ecommerce.services.dtos.supplierproduct.responses.GetSupplierProductResponse;
+import com.example.spring_ecommerce.services.dtos.supplierproduct.responses.SupplierProductListResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,12 +18,12 @@ public class SupplierProductController {
     private SupplierProductService supplierProductService;
 
     @GetMapping
-    public List<SupplierProduct> get() {
+    public List<SupplierProductListResponse> get() {
         return supplierProductService.getAll();
     }
 
     @GetMapping("/{id}")
-    public Optional<SupplierProduct> getByID(@PathVariable int id) {
+    public Optional<GetSupplierProductResponse> getByID(@PathVariable int id) {
         return supplierProductService.getByID(id);
     }
 

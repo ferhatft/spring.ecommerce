@@ -3,15 +3,17 @@ package com.example.spring_ecommerce.services.abstracts;
 import com.example.spring_ecommerce.entities.Supplier;
 import com.example.spring_ecommerce.services.dtos.supplier.requests.AddSupplierRequest;
 import com.example.spring_ecommerce.services.dtos.supplier.requests.UpdateSupplierRequest;
+import com.example.spring_ecommerce.services.dtos.supplier.responses.GetSupplierResponse;
+import com.example.spring_ecommerce.services.dtos.supplier.responses.SupplierListResponse;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface SupplierService {
 
-    List<Supplier> getAll();
+    List<SupplierListResponse> getAll();
 
-    Optional<Supplier> getByID(int id);
+    Optional<GetSupplierResponse> getByID(int id);
 
     void add(AddSupplierRequest addSupplierRequest);
 

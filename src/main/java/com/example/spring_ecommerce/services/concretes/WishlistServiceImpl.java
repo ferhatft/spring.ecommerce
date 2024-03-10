@@ -7,9 +7,12 @@ import com.example.spring_ecommerce.repositories.abstracts.WishlistRepository;
 import com.example.spring_ecommerce.services.abstracts.WishlistService;
 import com.example.spring_ecommerce.services.dtos.wishlist.requests.AddWishlistRequest;
 import com.example.spring_ecommerce.services.dtos.wishlist.requests.UpdateWishlistRequest;
+import com.example.spring_ecommerce.services.dtos.wishlist.responses.GetWishlistResponse;
+import com.example.spring_ecommerce.services.dtos.wishlist.responses.WishlistListResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,13 +23,36 @@ public class WishlistServiceImpl implements WishlistService {
     private WishlistRepository wishlistRepository;
 
     @Override
-    public List<Wishlist> getAll() {
-        return wishlistRepository.findAll();
+    public List<WishlistListResponse> getAll() {
+        List<Wishlist> wishlists = wishlistRepository.findAll();
+        List<WishlistListResponse> response = new ArrayList<>();
+
+        for (Wishlist wishlist: wishlists) {
+            WishlistListResponse dto = new WishlistListResponse(
+                    wishlist.getId(),
+                    wishlist.getEditDate(),
+                    wishlist.getCurrentPrice(),
+                    wishlist.getUser().getFirstName(),
+                    wishlist.getUser().getLastName(),
+                    wishlist.getProduct().getName());
+            response.add(dto);
+        }
+
+        return response;
     }
 
     @Override
-    public Optional<Wishlist> getByID(int id) {
-        return wishlistRepository.findById(id);
+    public Optional<GetWishlistResponse> getByID(int id) {
+        Wishlist wishlist = wishlistRepository.findById(id).orElse(null);
+
+        assert wishlist!= null;
+        return Optional.of(new GetWishlistResponse(
+                wishlist.getId(),
+                wishlist.getEditDate(),
+                wishlist.getCurrentPrice(),
+                wishlist.getUser().getFirstName(),
+                wishlist.getUser().getLastName(),
+                wishlist.getProduct().getName()));
     }
 
     @Override

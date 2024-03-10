@@ -6,9 +6,12 @@ import com.example.spring_ecommerce.repositories.abstracts.SupplierRepository;
 import com.example.spring_ecommerce.services.abstracts.SupplierService;
 import com.example.spring_ecommerce.services.dtos.supplier.requests.AddSupplierRequest;
 import com.example.spring_ecommerce.services.dtos.supplier.requests.UpdateSupplierRequest;
+import com.example.spring_ecommerce.services.dtos.supplier.responses.GetSupplierResponse;
+import com.example.spring_ecommerce.services.dtos.supplier.responses.SupplierListResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,13 +22,30 @@ public class SupplierServiceImpl implements SupplierService {
     private SupplierRepository supplierRepository;
 
     @Override
-    public List<Supplier> getAll() {
-        return supplierRepository.findAll();
+    public List<SupplierListResponse> getAll() {
+        List<Supplier> suppliers = supplierRepository.findAll();
+        List<SupplierListResponse> response = new ArrayList<>();
+
+        for (Supplier supplier: suppliers) {
+            SupplierListResponse dto = new SupplierListResponse(
+                    supplier.getId(),
+                    supplier.getUser().getFirstName(),
+                    supplier.getUser().getLastName());
+            response.add(dto);
+        }
+
+        return response;
     }
 
     @Override
-    public Optional<Supplier> getByID(int id) {
-        return supplierRepository.findById(id);
+    public Optional<GetSupplierResponse> getByID(int id) {
+        Supplier supplier = supplierRepository.findById(id).orElse(null);
+
+        assert supplier!= null;
+        return Optional.of(new GetSupplierResponse(
+                supplier.getId(),
+                supplier.getUser().getFirstName(),
+                supplier.getUser().getLastName()));
     }
 
     @Override

@@ -5,9 +5,12 @@ import com.example.spring_ecommerce.repositories.abstracts.ReviewRepository;
 import com.example.spring_ecommerce.services.abstracts.ReviewService;
 import com.example.spring_ecommerce.services.dtos.review.requests.AddReviewRequest;
 import com.example.spring_ecommerce.services.dtos.review.requests.UpdateReviewRequest;
+import com.example.spring_ecommerce.services.dtos.review.responses.GetReviewResponse;
+import com.example.spring_ecommerce.services.dtos.review.responses.ReviewListResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,13 +21,34 @@ public class ReviewServiceImpl implements ReviewService {
     private ReviewRepository reviewRepository;
 
     @Override
-    public List<Review> getAll() {
-        return reviewRepository.findAll();
+    public List<ReviewListResponse> getAll() {
+        List<Review> reviews = reviewRepository.findAll();
+        List<ReviewListResponse> response = new ArrayList<>();
+
+        for (Review review: reviews) {
+            ReviewListResponse dto = new ReviewListResponse(
+                    review.getId(),
+                    review.getDetail(),
+                    review.getProduct().getName(),
+                    review.getUser().getFirstName(),
+                    review.getUser().getLastName());
+            response.add(dto);
+        }
+
+        return response;
     }
 
     @Override
-    public Optional<Review> getByID(int id) {
-        return reviewRepository.findById(id);
+    public Optional<GetReviewResponse> getByID(int id) {
+        Review review = reviewRepository.findById(id).orElse(null);
+
+        assert review != null;
+        return Optional.of(new GetReviewResponse(
+                review.getId(),
+                review.getDetail(),
+                review.getProduct().getName(),
+                review.getUser().getFirstName(),
+                review.getUser().getLastName()));
     }
 
     @Override

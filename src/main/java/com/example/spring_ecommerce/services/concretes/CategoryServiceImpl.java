@@ -5,9 +5,12 @@ import com.example.spring_ecommerce.repositories.abstracts.CategoryRepository;
 import com.example.spring_ecommerce.services.abstracts.CategoryService;
 import com.example.spring_ecommerce.services.dtos.category.requests.AddCategoryRequest;
 import com.example.spring_ecommerce.services.dtos.category.requests.UpdateCategoryRequest;
+import com.example.spring_ecommerce.services.dtos.category.responses.CategoryListResponse;
+import com.example.spring_ecommerce.services.dtos.category.responses.GetCategoryResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,13 +21,28 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryRepository categoryRepository;
 
     @Override
-    public List<Category> getAll() {
-        return categoryRepository.findAll();
+    public List<CategoryListResponse> getAll() {
+        List<Category> categories = categoryRepository.findAll();
+        List<CategoryListResponse> response = new ArrayList<>();
+
+        for (Category category: categories) {
+            CategoryListResponse dto = new CategoryListResponse(
+                    category.getId(),
+                    category.getName());
+            response.add(dto);
+        }
+
+        return response;
     }
 
     @Override
-    public Optional<Category> getByID(int id) {
-        return categoryRepository.findById(id);
+    public Optional<GetCategoryResponse> getByID(int id) {
+        Category category = categoryRepository.findById(id).orElse(null);
+
+        assert category != null;
+        return Optional.of(new GetCategoryResponse(
+                category.getId(),
+                category.getName()));
     }
 
     @Override

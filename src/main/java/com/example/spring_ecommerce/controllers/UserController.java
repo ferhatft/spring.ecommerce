@@ -4,6 +4,8 @@ import com.example.spring_ecommerce.entities.User;
 import com.example.spring_ecommerce.services.abstracts.UserService;
 import com.example.spring_ecommerce.services.dtos.user.requests.AddUserRequest;
 import com.example.spring_ecommerce.services.dtos.user.requests.UpdateUserRequest;
+import com.example.spring_ecommerce.services.dtos.user.responses.GetUserResponse;
+import com.example.spring_ecommerce.services.dtos.user.responses.UserListResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,12 +19,12 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public List<User> get() {
+    public List<UserListResponse> get() {
         return userService.getAll();
     }
 
     @GetMapping("/{id}")
-    public Optional<User> getByID(@PathVariable int id) {
+    public Optional<GetUserResponse> getByID(@PathVariable int id) {
         return userService.getByID(id);
     }
 

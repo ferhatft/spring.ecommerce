@@ -5,9 +5,12 @@ import com.example.spring_ecommerce.repositories.abstracts.RoleRepository;
 import com.example.spring_ecommerce.services.abstracts.RoleService;
 import com.example.spring_ecommerce.services.dtos.role.requests.AddRoleRequest;
 import com.example.spring_ecommerce.services.dtos.role.requests.UpdateRoleRequest;
+import com.example.spring_ecommerce.services.dtos.role.responses.GetRoleResponse;
+import com.example.spring_ecommerce.services.dtos.role.responses.RoleListResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,13 +21,28 @@ public class RoleServiceImpl implements RoleService {
     private RoleRepository roleRepository;
 
     @Override
-    public List<Role> getAll() {
-        return roleRepository.findAll();
+    public List<RoleListResponse> getAll() {
+        List<Role> roles = roleRepository.findAll();
+        List<RoleListResponse> response = new ArrayList<>();
+
+        for (Role role: roles) {
+            RoleListResponse dto = new RoleListResponse(
+                    role.getId(),
+                    role.getName());
+            response.add(dto);
+        }
+
+        return response;
     }
 
     @Override
-    public Optional<Role> getByID(int id) {
-        return roleRepository.findById(id);
+    public Optional<GetRoleResponse> getByID(int id) {
+        Role role = roleRepository.findById(id).orElse(null);
+
+        assert role != null;
+        return Optional.of(new GetRoleResponse(
+                role.getId(),
+                role.getName()));
     }
 
     @Override
@@ -52,3 +70,5 @@ public class RoleServiceImpl implements RoleService {
         roleRepository.deleteById(id);
     }
 }
+
+

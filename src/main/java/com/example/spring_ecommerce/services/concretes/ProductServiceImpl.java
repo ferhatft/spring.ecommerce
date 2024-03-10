@@ -9,9 +9,12 @@ import com.example.spring_ecommerce.repositories.abstracts.ProductRepository;
 import com.example.spring_ecommerce.services.abstracts.ProductService;
 import com.example.spring_ecommerce.services.dtos.product.requests.AddProductRequest;
 import com.example.spring_ecommerce.services.dtos.product.requests.UpdateProductRequest;
+import com.example.spring_ecommerce.services.dtos.product.responses.GetProductResponse;
+import com.example.spring_ecommerce.services.dtos.product.responses.ProductListResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,15 +24,36 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
 
     @Override
-    public List<Product> getAll() {
+    public List<ProductListResponse> getAll() {
+        List<Product> products = productRepository.findAll();
+        List<ProductListResponse> response = new ArrayList<>();
 
-        return productRepository.findAll();
+        for (Product product: products) {
+            ProductListResponse dto = new ProductListResponse(
+                    product.getId(),
+                    product.getName(),
+                    product.getStock(),
+                    product.getUnitPrice(),
+                    product.getCategory().getName(),
+                    product.getBrand().getName());
+            response.add(dto);
+        }
+
+        return response;
     }
 
     @Override
-    public Optional<Product> getByID(int id) {
+    public Optional<GetProductResponse> getByID(int id) {
+        Product product = productRepository.findById(id).orElse(null);
 
-        return productRepository.findById(id);
+        assert product != null;
+        return Optional.of(new GetProductResponse(
+                product.getId(),
+                product.getName(),
+                product.getStock(),
+                product.getUnitPrice(),
+                product.getCategory().getName(),
+                product.getBrand().getName()));
     }
 
     @Override

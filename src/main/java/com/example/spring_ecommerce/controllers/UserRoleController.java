@@ -4,6 +4,8 @@ import com.example.spring_ecommerce.entities.UserRole;
 import com.example.spring_ecommerce.services.abstracts.UserRoleService;
 import com.example.spring_ecommerce.services.dtos.userrole.requests.AddUserRoleRequest;
 import com.example.spring_ecommerce.services.dtos.userrole.requests.UpdateUserRoleRequest;
+import com.example.spring_ecommerce.services.dtos.userrole.responses.GetUserRoleResponse;
+import com.example.spring_ecommerce.services.dtos.userrole.responses.UserRoleListResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,12 +18,12 @@ public class UserRoleController {
     private UserRoleService userRoleService;
 
     @GetMapping
-    public List<UserRole> get() {
+    public List<UserRoleListResponse> get() {
         return userRoleService.getAll();
     }
 
     @GetMapping("/{id}")
-    public Optional<UserRole> getByID(@PathVariable int id) {
+    public Optional<GetUserRoleResponse> getByID(@PathVariable int id) {
         return userRoleService.getByID(id);
     }
 

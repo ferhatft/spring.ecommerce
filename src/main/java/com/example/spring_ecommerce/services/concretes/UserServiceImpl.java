@@ -5,9 +5,12 @@ import com.example.spring_ecommerce.repositories.abstracts.UserRepository;
 import com.example.spring_ecommerce.services.abstracts.UserService;
 import com.example.spring_ecommerce.services.dtos.user.requests.AddUserRequest;
 import com.example.spring_ecommerce.services.dtos.user.requests.UpdateUserRequest;
+import com.example.spring_ecommerce.services.dtos.user.responses.GetUserResponse;
+import com.example.spring_ecommerce.services.dtos.user.responses.UserListResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,13 +21,32 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public List<User> getAll() {
-        return userRepository.findAll();
+    public List<UserListResponse> getAll() {
+        List<User> users = userRepository.findAll();
+        List<UserListResponse> response = new ArrayList<>();
+
+        for (User user: users) {
+            UserListResponse dto = new UserListResponse(
+                    user.getId(),
+                    user.getFirstName(),
+                    user.getLastName(),
+                    user.getEmail());
+            response.add(dto);
+        }
+
+        return response;
     }
 
     @Override
-    public Optional<User> getByID(int id) {
-        return userRepository.findById(id);
+    public Optional<GetUserResponse> getByID(int id) {
+        User user = userRepository.findById(id).orElse(null);
+
+        assert user != null;
+        return Optional.of(new GetUserResponse(
+                user.getId(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getEmail()));
     }
 
     @Override
