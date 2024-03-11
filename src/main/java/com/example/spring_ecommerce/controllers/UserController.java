@@ -6,6 +6,7 @@ import com.example.spring_ecommerce.services.dtos.user.requests.AddUserRequest;
 import com.example.spring_ecommerce.services.dtos.user.requests.UpdateUserRequest;
 import com.example.spring_ecommerce.services.dtos.user.responses.GetUserResponse;
 import com.example.spring_ecommerce.services.dtos.user.responses.UserListResponse;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,12 +30,12 @@ public class UserController {
     }
 
     @PostMapping
-    public void add(@RequestBody AddUserRequest addUserRequest) {
+    public void add(@RequestBody @Valid AddUserRequest addUserRequest) {
         userService.add(addUserRequest);
     }
 
     @PutMapping
-    public void update(@RequestBody UpdateUserRequest updateUserRequest) {
+    public void update(@RequestBody @Valid UpdateUserRequest updateUserRequest) {
         userService.update(updateUserRequest);
     }
 

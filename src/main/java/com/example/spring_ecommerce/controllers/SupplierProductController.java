@@ -7,6 +7,7 @@ import com.example.spring_ecommerce.services.dtos.supplierproduct.requests.Updat
 import com.example.spring_ecommerce.services.dtos.supplierproduct.responses.GetSupplierProductResponse;
 import com.example.spring_ecommerce.services.dtos.supplierproduct.responses.ProductSupplierCountResponse;
 import com.example.spring_ecommerce.services.dtos.supplierproduct.responses.SupplierProductListResponse;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,12 +30,12 @@ public class SupplierProductController {
     }
 
     @PostMapping
-    public void add(@RequestBody AddSupplierProductRequest addSupplierProductRequest) {
+    public void add(@RequestBody @Valid AddSupplierProductRequest addSupplierProductRequest) {
         supplierProductService.add(addSupplierProductRequest);
     }
 
     @PutMapping
-    public void update(@RequestBody UpdateSupplierProductRequest updateSupplierProductRequest) {
+    public void update(@RequestBody @Valid UpdateSupplierProductRequest updateSupplierProductRequest) {
         supplierProductService.update(updateSupplierProductRequest);
     }
 

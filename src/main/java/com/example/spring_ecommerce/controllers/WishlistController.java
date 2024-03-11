@@ -6,6 +6,7 @@ import com.example.spring_ecommerce.services.dtos.wishlist.requests.AddWishlistR
 import com.example.spring_ecommerce.services.dtos.wishlist.requests.UpdateWishlistRequest;
 import com.example.spring_ecommerce.services.dtos.wishlist.responses.GetWishlistResponse;
 import com.example.spring_ecommerce.services.dtos.wishlist.responses.WishlistListResponse;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,12 +30,12 @@ public class WishlistController {
     }
 
     @PostMapping
-    public void add(@RequestBody AddWishlistRequest addWishlistRequest) {
+    public void add(@RequestBody @Valid AddWishlistRequest addWishlistRequest) {
         wishlistService.add(addWishlistRequest);
     }
 
     @PutMapping
-    public void update(@RequestBody UpdateWishlistRequest updateWishlistRequest) {
+    public void update(@RequestBody @Valid UpdateWishlistRequest updateWishlistRequest) {
         wishlistService.update(updateWishlistRequest);
     }
 

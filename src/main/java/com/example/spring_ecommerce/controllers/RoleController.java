@@ -6,6 +6,7 @@ import com.example.spring_ecommerce.services.dtos.role.requests.AddRoleRequest;
 import com.example.spring_ecommerce.services.dtos.role.requests.UpdateRoleRequest;
 import com.example.spring_ecommerce.services.dtos.role.responses.GetRoleResponse;
 import com.example.spring_ecommerce.services.dtos.role.responses.RoleListResponse;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,12 +29,12 @@ public class RoleController {
     }
 
     @PostMapping
-    public void add(@RequestBody AddRoleRequest addRoleRequest) {
+    public void add(@RequestBody @Valid AddRoleRequest addRoleRequest) {
         roleService.add(addRoleRequest);
     }
 
     @PutMapping
-    public void update(@RequestBody UpdateRoleRequest updateRoleRequest) {
+    public void update(@RequestBody @Valid UpdateRoleRequest updateRoleRequest) {
         roleService.update(updateRoleRequest);
     }
 

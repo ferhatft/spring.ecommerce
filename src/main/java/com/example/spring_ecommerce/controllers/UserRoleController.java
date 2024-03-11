@@ -6,6 +6,7 @@ import com.example.spring_ecommerce.services.dtos.userrole.requests.AddUserRoleR
 import com.example.spring_ecommerce.services.dtos.userrole.requests.UpdateUserRoleRequest;
 import com.example.spring_ecommerce.services.dtos.userrole.responses.GetUserRoleResponse;
 import com.example.spring_ecommerce.services.dtos.userrole.responses.UserRoleListResponse;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,12 +29,12 @@ public class UserRoleController {
     }
 
     @PostMapping
-    public void add(@RequestBody AddUserRoleRequest addUserRoleRequest) {
+    public void add(@RequestBody @Valid AddUserRoleRequest addUserRoleRequest) {
         userRoleService.add(addUserRoleRequest);
     }
 
     @PutMapping
-    public void update(@RequestBody UpdateUserRoleRequest updateUserRoleRequest) {
+    public void update(@RequestBody @Valid UpdateUserRoleRequest updateUserRoleRequest) {
         userRoleService.update(updateUserRoleRequest);
     }
 

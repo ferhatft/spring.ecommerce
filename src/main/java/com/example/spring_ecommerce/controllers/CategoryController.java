@@ -6,6 +6,7 @@ import com.example.spring_ecommerce.services.dtos.category.requests.AddCategoryR
 import com.example.spring_ecommerce.services.dtos.category.requests.UpdateCategoryRequest;
 import com.example.spring_ecommerce.services.dtos.category.responses.CategoryListResponse;
 import com.example.spring_ecommerce.services.dtos.category.responses.GetCategoryResponse;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,12 +30,12 @@ public class CategoryController {
     }
 
     @PostMapping
-    public void add(@RequestBody AddCategoryRequest addCategoryRequest) {
+    public void add(@RequestBody @Valid AddCategoryRequest addCategoryRequest) {
         categoryService.add(addCategoryRequest);
     }
 
     @PutMapping
-    public void update(@RequestBody UpdateCategoryRequest updateCategoryRequest) {
+    public void update(@RequestBody @Valid UpdateCategoryRequest updateCategoryRequest) {
         categoryService.update(updateCategoryRequest);
     }
 

@@ -7,6 +7,7 @@ import com.example.spring_ecommerce.services.dtos.review.requests.UpdateReviewRe
 import com.example.spring_ecommerce.services.dtos.review.responses.GetReviewResponse;
 import com.example.spring_ecommerce.services.dtos.review.responses.ReviewCountResponse;
 import com.example.spring_ecommerce.services.dtos.review.responses.ReviewListResponse;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,12 +31,12 @@ public class ReviewController {
     }
 
     @PostMapping
-    public void add(@RequestBody AddReviewRequest addReviewRequest) {
+    public void add(@RequestBody @Valid AddReviewRequest addReviewRequest) {
         reviewService.add(addReviewRequest);
     }
 
     @PutMapping
-    public void update(@RequestBody UpdateReviewRequest updateReviewRequest) {
+    public void update(@RequestBody @Valid UpdateReviewRequest updateReviewRequest) {
         reviewService.update(updateReviewRequest);
     }
 

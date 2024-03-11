@@ -13,18 +13,14 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AddProductRequest {
-    @NotBlank(message = "product name con not be empty")
+    @NotBlank(message = "Category name cannot be blank")
     private String name;
-
     @Min(0)
     private int stock;
-
     @Min(0)
     private double unitPrice;
-
     @Min(1)
     private int categoryId;
-
     @Min(1)
     private int brandId;
 }
