@@ -8,6 +8,7 @@ import com.example.spring_ecommerce.services.abstracts.SupplierProductService;
 import com.example.spring_ecommerce.services.dtos.supplierproduct.requests.AddSupplierProductRequest;
 import com.example.spring_ecommerce.services.dtos.supplierproduct.requests.UpdateSupplierProductRequest;
 import com.example.spring_ecommerce.services.dtos.supplierproduct.responses.GetSupplierProductResponse;
+import com.example.spring_ecommerce.services.dtos.supplierproduct.responses.ProductSupplierCountResponse;
 import com.example.spring_ecommerce.services.dtos.supplierproduct.responses.SupplierProductListResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -83,5 +84,10 @@ public class SupplierProductServiceImpl implements SupplierProductService {
     @Override
     public void delete(int id) {
         supplierProductRepository.deleteById(id);
+    }
+
+    @Override
+    public List<ProductSupplierCountResponse> findProductsBySupplierCountGreaterThanOne() {
+        return supplierProductRepository.findProductsBySupplierCountGreaterThanOne();
     }
 }

@@ -5,6 +5,7 @@ import com.example.spring_ecommerce.services.abstracts.ReviewService;
 import com.example.spring_ecommerce.services.dtos.review.requests.AddReviewRequest;
 import com.example.spring_ecommerce.services.dtos.review.requests.UpdateReviewRequest;
 import com.example.spring_ecommerce.services.dtos.review.responses.GetReviewResponse;
+import com.example.spring_ecommerce.services.dtos.review.responses.ReviewCountResponse;
 import com.example.spring_ecommerce.services.dtos.review.responses.ReviewListResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +42,11 @@ public class ReviewController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable int id) {
         reviewService.delete(id);
+    }
+
+    @GetMapping("UsersByReviewCountLessThanOne")
+    public List<ReviewCountResponse> findUsersByReviewCountLessThanTwo(){
+        return reviewService.findUsersByReviewCountLessThanTwo();
     }
 }
 

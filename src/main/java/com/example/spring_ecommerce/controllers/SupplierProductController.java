@@ -5,6 +5,7 @@ import com.example.spring_ecommerce.services.abstracts.SupplierProductService;
 import com.example.spring_ecommerce.services.dtos.supplierproduct.requests.AddSupplierProductRequest;
 import com.example.spring_ecommerce.services.dtos.supplierproduct.requests.UpdateSupplierProductRequest;
 import com.example.spring_ecommerce.services.dtos.supplierproduct.responses.GetSupplierProductResponse;
+import com.example.spring_ecommerce.services.dtos.supplierproduct.responses.ProductSupplierCountResponse;
 import com.example.spring_ecommerce.services.dtos.supplierproduct.responses.SupplierProductListResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +41,11 @@ public class SupplierProductController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable int id) {
         supplierProductService.delete(id);
+    }
+
+    @GetMapping("ProductsBySupplierCountGreaterThanOne")
+    public List<ProductSupplierCountResponse> findProductsBySupplierCountGreaterThanOne(){
+        return supplierProductService.findProductsBySupplierCountGreaterThanOne();
     }
 }
 

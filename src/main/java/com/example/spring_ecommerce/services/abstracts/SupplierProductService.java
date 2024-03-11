@@ -1,9 +1,9 @@
 package com.example.spring_ecommerce.services.abstracts;
 
-import com.example.spring_ecommerce.entities.SupplierProduct;
 import com.example.spring_ecommerce.services.dtos.supplierproduct.requests.AddSupplierProductRequest;
 import com.example.spring_ecommerce.services.dtos.supplierproduct.requests.UpdateSupplierProductRequest;
 import com.example.spring_ecommerce.services.dtos.supplierproduct.responses.GetSupplierProductResponse;
+import com.example.spring_ecommerce.services.dtos.supplierproduct.responses.ProductSupplierCountResponse;
 import com.example.spring_ecommerce.services.dtos.supplierproduct.responses.SupplierProductListResponse;
 
 import java.util.List;
@@ -20,5 +20,7 @@ public interface SupplierProductService {
     void update(UpdateSupplierProductRequest updateSupplierProductRequest);
 
     void delete(int id);
+
+    List<ProductSupplierCountResponse> findProductsBySupplierCountGreaterThanOne();
 
 }

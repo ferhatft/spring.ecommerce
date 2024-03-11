@@ -6,6 +6,7 @@ import com.example.spring_ecommerce.services.abstracts.ReviewService;
 import com.example.spring_ecommerce.services.dtos.review.requests.AddReviewRequest;
 import com.example.spring_ecommerce.services.dtos.review.requests.UpdateReviewRequest;
 import com.example.spring_ecommerce.services.dtos.review.responses.GetReviewResponse;
+import com.example.spring_ecommerce.services.dtos.review.responses.ReviewCountResponse;
 import com.example.spring_ecommerce.services.dtos.review.responses.ReviewListResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -86,5 +87,10 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public void delete(int id) {
         reviewRepository.deleteById(id);
+    }
+
+    @Override
+    public List<ReviewCountResponse> findUsersByReviewCountLessThanTwo() {
+        return reviewRepository.findUsersByReviewCountLessThanTwo();
     }
 }
