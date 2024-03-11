@@ -4,6 +4,7 @@ import com.example.spring_ecommerce.entities.Product;
 
 import com.example.spring_ecommerce.services.dtos.product.requests.AddProductRequest;
 import com.example.spring_ecommerce.services.dtos.product.requests.UpdateProductRequest;
+import com.example.spring_ecommerce.services.dtos.product.responses.GetMostSoldProductResponse;
 import com.example.spring_ecommerce.services.dtos.product.responses.GetProductResponse;
 import com.example.spring_ecommerce.services.dtos.product.responses.ProductListResponse;
 
@@ -21,5 +22,7 @@ public interface ProductService {
     void update(UpdateProductRequest request);
 
     void delete(int id);
+
+    GetMostSoldProductResponse findMostSoldProductLastMonth();
 
 }

@@ -43,4 +43,18 @@ public class UserController {
         userService.delete(id);
     }
 
+    @GetMapping("UsersInIstanbul")
+    public List<UserListResponse> findUsersInIstanbul(){
+        return userService.findUsersInIstanbul();
+    }
+    @GetMapping("AdminUsers")
+    public List<UserListResponse> findAdminUsers(){
+        return userService.findAdminUsers();
+    }
+
+    @GetMapping("UsersWithOrdersForAsusProducts")
+    public List<UserListResponse> findUsersWithOrdersForAsusProducts(){
+        return userService.findUsersWithOrdersForAsusProducts();
+    }
+
 }

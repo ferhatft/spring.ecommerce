@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
         List<User> users = userRepository.findAll();
         List<UserListResponse> response = new ArrayList<>();
 
-        for (User user: users) {
+        for (User user : users) {
             UserListResponse dto = new UserListResponse(
                     user.getId(),
                     user.getFirstName(),
@@ -79,4 +79,57 @@ public class UserServiceImpl implements UserService {
     public void delete(int id) {
         userRepository.deleteById(id);
     }
+
+    @Override
+    public List<UserListResponse> findUsersInIstanbul() {
+        List<User> users = userRepository.findUsersInIstanbul();
+        List<UserListResponse> response = new ArrayList<>();
+
+        for (User user : users) {
+            UserListResponse dto = new UserListResponse(
+                    user.getId(),
+                    user.getFirstName(),
+                    user.getLastName(),
+                    user.getEmail());
+            response.add(dto);
+        }
+
+        return response;
+    }
+
+    @Override
+    public List<UserListResponse> findAdminUsers() {
+        List<User> users = userRepository.findAdminUsers();
+        List<UserListResponse> response = new ArrayList<>();
+
+        for (User user : users) {
+            UserListResponse dto = new UserListResponse(
+                    user.getId(),
+                    user.getFirstName(),
+                    user.getLastName(),
+                    user.getEmail());
+            response.add(dto);
+        }
+
+        return response;
+    }
+
+    @Override
+    public List<UserListResponse> findUsersWithOrdersForAsusProducts() {
+        List<User> users = userRepository.findUsersWithOrdersForAsusProducts();
+        List<UserListResponse> response = new ArrayList<>();
+
+        for (User user : users) {
+            UserListResponse dto = new UserListResponse(
+                    user.getId(),
+                    user.getFirstName(),
+                    user.getLastName(),
+                    user.getEmail());
+            response.add(dto);
+        }
+
+        return response;
+    }
+
+
 }

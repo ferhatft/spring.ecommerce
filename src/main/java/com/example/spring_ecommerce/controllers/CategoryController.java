@@ -42,4 +42,9 @@ public class CategoryController {
     public void delete(@PathVariable int id) {
         categoryService.delete(id);
     }
+
+    @GetMapping("CategoriesWithProducts")
+    List<CategoryListResponse> searchCategoriesWithProducts() {
+        return categoryService.searchCategoriesWithProducts();
+    }
 }

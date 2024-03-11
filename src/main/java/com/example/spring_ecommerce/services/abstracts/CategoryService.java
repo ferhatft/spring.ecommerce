@@ -20,4 +20,6 @@ public interface CategoryService {
 
     void delete(int id);
 
+    List<CategoryListResponse> searchCategoriesWithProducts();
+
 }

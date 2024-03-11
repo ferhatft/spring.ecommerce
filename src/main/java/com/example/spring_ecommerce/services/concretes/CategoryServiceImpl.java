@@ -69,4 +69,22 @@ public class CategoryServiceImpl implements CategoryService {
     public void delete(int id) {
         categoryRepository.deleteById(id);
     }
+
+    @Override
+    public List<CategoryListResponse> searchCategoriesWithProducts() {
+        List<Category> categories = categoryRepository.findAllCategoriesWithProducts();
+        List<CategoryListResponse> response = new ArrayList<>();
+
+        for (Category category: categories) {
+            CategoryListResponse dto = new CategoryListResponse(
+                    category.getId(),
+                    category.getName());
+            response.add(dto);
+        }
+
+        return response;
+
+    }
+
+
 }

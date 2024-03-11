@@ -5,6 +5,7 @@ import com.example.spring_ecommerce.services.abstracts.ProductService;
 
 import com.example.spring_ecommerce.services.dtos.product.requests.AddProductRequest;
 import com.example.spring_ecommerce.services.dtos.product.requests.UpdateProductRequest;
+import com.example.spring_ecommerce.services.dtos.product.responses.GetMostSoldProductResponse;
 import com.example.spring_ecommerce.services.dtos.product.responses.GetProductResponse;
 import com.example.spring_ecommerce.services.dtos.product.responses.ProductListResponse;
 
@@ -44,6 +45,11 @@ public class ProductController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable int id) {
         productService.delete(id);
+    }
+
+    @GetMapping("MostSoldProduct")
+    public GetMostSoldProductResponse findMostSoldProductLastMonth(){
+        return productService.findMostSoldProductLastMonth();
     }
 }
 

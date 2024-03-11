@@ -10,12 +10,17 @@ import com.example.spring_ecommerce.services.abstracts.ProductService;
 
 import com.example.spring_ecommerce.services.dtos.product.requests.AddProductRequest;
 import com.example.spring_ecommerce.services.dtos.product.requests.UpdateProductRequest;
+import com.example.spring_ecommerce.services.dtos.product.responses.GetMostSoldProductResponse;
 import com.example.spring_ecommerce.services.dtos.product.responses.GetProductResponse;
 import com.example.spring_ecommerce.services.dtos.product.responses.ProductListResponse;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -109,6 +114,39 @@ public class ProductServiceImpl implements ProductService {
     public void delete(int id) {
         productRepository.deleteById(id);
     }
+
+    @Override
+    public GetMostSoldProductResponse findMostSoldProductLastMonth() {
+        List<Object[]> result = productRepository.findMostSoldProductLastMonth();
+        if (!result.isEmpty()) {
+            Object[] row = result.get(0);
+            String name = (String) row[0];
+            LocalDateTime orderDate = null;
+            Object dateObject = row[1];
+            if (dateObject != null) {
+                if (dateObject instanceof String) {
+                    // Parse the string to LocalDateTime
+                    orderDate = LocalDateTime.parse((String) dateObject);
+                } else if (dateObject instanceof Timestamp) {
+                    orderDate = ((Timestamp) dateObject).toLocalDateTime();
+                } else if (dateObject instanceof Instant) {
+                    orderDate = ((Instant) dateObject).atZone(ZoneId.systemDefault()).toLocalDateTime();
+                } else {
+                    // Log the actual type of dateObject
+                    System.out.println("Unexpected type for order date: " + dateObject.getClass().getName());
+                }
+            }
+            Long soldProductCount = (Long) row[2];
+            return new GetMostSoldProductResponse(name, orderDate, soldProductCount);
+        }
+        return null;
+    }
+
+
+
+
+
+
 
     private void productWithSameNameShouldNotExists(String name) {
         Optional<Product> productWithSameName =
