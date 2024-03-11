@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
 
@@ -28,4 +29,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
             "INNER JOIN brands b on b.id =p.brandid\n" +
             "where b.name='Asus' ", nativeQuery = true)
     List<User> findUsersWithOrdersForAsusProducts();
+
+    Optional<User> findByEmail(String email);
 }

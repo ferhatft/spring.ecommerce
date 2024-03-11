@@ -51,6 +51,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void add(AddUserRequest addUserRequest) {
+        Optional<User> userWithSameEmail = userRepository.findByEmail(addUserRequest.getEmail());
+        if (userWithSameEmail.isPresent()) {
+            throw new RuntimeException("Mail address has to be unique!");
+        }
+
         User user = new User();
         user.setFirstName(addUserRequest.getFirstName());
         user.setLastName(addUserRequest.getLastName());
