@@ -1,15 +1,15 @@
 package com.example.spring_ecommerce.services.abstracts;
 
 import com.example.spring_ecommerce.entities.Address;
-import com.example.spring_ecommerce.services.dto.address.request.AddAddressRequest;
-import com.example.spring_ecommerce.services.dto.address.request.UpdateAddressRequest;
-import com.example.spring_ecommerce.services.dto.address.response.ListAddressResponse;
+import com.example.spring_ecommerce.services.dtos.address.request.AddAddressRequest;
+import com.example.spring_ecommerce.services.dtos.address.request.UpdateAddressRequest;
+import com.example.spring_ecommerce.services.dtos.address.response.ListAddressesResponse;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface AddressService {
-    List<ListAddressResponse> getAll();
+    List<ListAddressesResponse> getAll();
 
     Optional<Address> getByID(int id);
 

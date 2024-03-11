@@ -2,20 +2,20 @@ package com.example.spring_ecommerce.controllers;
 
 import com.example.spring_ecommerce.entities.Order;
 import com.example.spring_ecommerce.services.abstracts.OrderService;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/orders")
+@Data
+@AllArgsConstructor
 public class OrderController {
 
     private final OrderService orderService;
-
-
-    public OrderController(OrderService orderService) {
-        this.orderService = orderService;
-    }
 
     @GetMapping
     public List<Order> get() {
@@ -40,6 +40,12 @@ public class OrderController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable int id) {
         orderService.delete(id);
+    }
+
+
+    @GetMapping("/mostSoldHour")
+    public List<Object[]> getMostSoldHour() {
+        return orderService.findMostSoldHour();
     }
 
 }

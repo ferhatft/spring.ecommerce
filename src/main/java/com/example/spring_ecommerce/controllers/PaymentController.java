@@ -5,6 +5,11 @@ import com.example.spring_ecommerce.entities.Likes;
 import com.example.spring_ecommerce.entities.Payment;
 import com.example.spring_ecommerce.repositories.abstracts.PaymentRepository;
 import com.example.spring_ecommerce.services.abstracts.PaymentService;
+import com.example.spring_ecommerce.services.dtos.payment.request.AddPaymentRequest;
+import com.example.spring_ecommerce.services.dtos.payment.request.UpdatePaymentRequest;
+import com.example.spring_ecommerce.services.dtos.payment.response.ListPaymentResponse;
+import com.example.spring_ecommerce.services.dtos.shipment.request.UpdateShipmentRequest;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +22,7 @@ import java.util.Optional;
 public class PaymentController {
     private PaymentService paymentService;
     @GetMapping
-    public List<Payment> get(){
+    public List<ListPaymentResponse> get(){
         return paymentService.getAll();
     }
     @GetMapping("/{id}")
@@ -26,13 +31,13 @@ public class PaymentController {
     }
 
     @PostMapping
-    public void add(@RequestBody Payment payment){
-        paymentService.add(payment);
+    public void add(@RequestBody @Valid AddPaymentRequest request){
+        paymentService.add(request);
     }
 
     @PutMapping
-    public void update(@RequestBody Payment payment) {
-        paymentService.update(payment);
+    public void update(@RequestBody @Valid UpdatePaymentRequest request) {
+        paymentService.update(request);
     }
 
     @DeleteMapping("/{id}")

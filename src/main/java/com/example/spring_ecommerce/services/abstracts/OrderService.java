@@ -14,4 +14,6 @@ public interface OrderService {
     Order update(int id, Order order);
 
     void delete(int id);
+
+    List<Object[]> findMostSoldHour();
 }

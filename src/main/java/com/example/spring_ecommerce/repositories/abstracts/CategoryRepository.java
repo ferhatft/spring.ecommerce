@@ -1,6 +1,7 @@
 package com.example.spring_ecommerce.repositories.abstracts;
 
 import com.example.spring_ecommerce.entities.Category;
+import com.example.spring_ecommerce.entities.Product;
 import com.example.spring_ecommerce.services.dtos.category.responses.CategoryListResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

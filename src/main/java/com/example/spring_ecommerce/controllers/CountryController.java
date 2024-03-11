@@ -2,9 +2,9 @@ package com.example.spring_ecommerce.controllers;
 
 import com.example.spring_ecommerce.entities.Country;
 import com.example.spring_ecommerce.services.abstracts.CountryService;
-import com.example.spring_ecommerce.services.dto.country.request.AddCountryRequest;
-import com.example.spring_ecommerce.services.dto.country.request.UpdateCountryRequest;
-import com.example.spring_ecommerce.services.dto.country.response.ListCountryResponse;
+import com.example.spring_ecommerce.services.dtos.country.request.AddCountryRequest;
+import com.example.spring_ecommerce.services.dtos.country.request.UpdateCountryRequest;
+import com.example.spring_ecommerce.services.dtos.country.response.ListCountryResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;

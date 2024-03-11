@@ -47,4 +47,7 @@ public class CategoryController {
     List<CategoryListResponse> searchCategoriesWithProducts() {
         return categoryService.searchCategoriesWithProducts();
     }
+
+
+
 }

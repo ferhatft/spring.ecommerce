@@ -1,14 +1,13 @@
 package com.example.spring_ecommerce.services.concretes;
 
 import com.example.spring_ecommerce.core.types.CityNotFoundException;
-import com.example.spring_ecommerce.core.types.CountryNotFoundException;
 import com.example.spring_ecommerce.entities.City;
 import com.example.spring_ecommerce.entities.Country;
 import com.example.spring_ecommerce.repositories.abstracts.CityRepository;
 import com.example.spring_ecommerce.services.abstracts.CityService;
-import com.example.spring_ecommerce.services.dto.city.request.AddCityRequest;
-import com.example.spring_ecommerce.services.dto.city.request.UpdateCityRequest;
-import com.example.spring_ecommerce.services.dto.city.response.ListCityResponse;
+import com.example.spring_ecommerce.services.dtos.city.request.AddCityRequest;
+import com.example.spring_ecommerce.services.dtos.city.request.UpdateCityRequest;
+import com.example.spring_ecommerce.services.dtos.city.response.ListCityResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

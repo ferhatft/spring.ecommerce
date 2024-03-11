@@ -25,4 +25,13 @@ public interface ProductService {
 
     GetMostSoldProductResponse findMostSoldProductLastMonth();
 
+    List<Object[]> findIdAndName();
+
+    List<Product> findByUnitPriceGreaterThanOrStockGreaterThan(int i, int i1);
+
+    List<Product> findByUnitPriceBetween(double minPrice, double maxPrice);
+
+    List<Product> findByUnitPriceGreaterThanAvg();
+
+    List<Product> findByCategoryName(String books);
 }

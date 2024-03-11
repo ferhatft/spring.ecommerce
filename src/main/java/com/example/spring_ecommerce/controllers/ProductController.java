@@ -51,5 +51,30 @@ public class ProductController {
     public GetMostSoldProductResponse findMostSoldProductLastMonth(){
         return productService.findMostSoldProductLastMonth();
     }
+
+    @GetMapping("/idAndName")
+    public List<Object[]> getIdAndNameOfProducts() {
+        return productService.findIdAndName();
+    }
+
+    @GetMapping("/expensiveOrHighStock")
+    public List<Product> getExpensiveOrHighStockProducts() {
+        return productService.findByUnitPriceGreaterThanOrStockGreaterThan(200, 2);
+    }
+
+    @GetMapping("/priceRange")
+    public List<Product> getProductsInPriceRange(@RequestParam("minPrice") double minPrice, @RequestParam("maxPrice") double maxPrice) {
+        return productService.findByUnitPriceBetween(minPrice, maxPrice);
+    }
+
+    @GetMapping("/priceAboveAverage")
+    public List<Product> getProductsAboveAveragePrice() {
+        return productService.findByUnitPriceGreaterThanAvg();
+    }
+
+    @GetMapping("/books")
+    public List<Product> getBooks() {
+        return productService.findByCategoryName("Books");
+    }
 }
 

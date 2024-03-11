@@ -2,9 +2,9 @@ package com.example.spring_ecommerce.controllers;
 
 import com.example.spring_ecommerce.entities.Address;
 import com.example.spring_ecommerce.services.abstracts.AddressService;
-import com.example.spring_ecommerce.services.dto.address.request.AddAddressRequest;
-import com.example.spring_ecommerce.services.dto.address.request.UpdateAddressRequest;
-import com.example.spring_ecommerce.services.dto.address.response.ListAddressResponse;
+import com.example.spring_ecommerce.services.dtos.address.request.AddAddressRequest;
+import com.example.spring_ecommerce.services.dtos.address.request.UpdateAddressRequest;
+import com.example.spring_ecommerce.services.dtos.address.response.ListAddressesResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +20,7 @@ public class AddressController {
 
 
     @GetMapping
-    public List<ListAddressResponse> get() {
+    public List<ListAddressesResponse> get() {
         return addressService.getAll();
     }
 

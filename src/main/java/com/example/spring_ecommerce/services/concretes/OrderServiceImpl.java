@@ -57,6 +57,11 @@ public class OrderServiceImpl implements OrderService {
 
     }
 
+    @Override
+    public List<Object[]> findMostSoldHour() {
+        return orderRepository.findMostSoldHour();
+    }
+
     public static boolean isValidDateFormat(String dateString) {
         String pattern = "^\\d{2}-\\d{2}-\\d{4}$";
         return Pattern.matches(pattern, dateString);

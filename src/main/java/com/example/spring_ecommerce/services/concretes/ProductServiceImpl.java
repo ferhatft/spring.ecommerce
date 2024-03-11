@@ -142,10 +142,30 @@ public class ProductServiceImpl implements ProductService {
         return null;
     }
 
+    @Override
+    public List<Object[]> findIdAndName() {
+        return productRepository.findIdAndName();
+    }
 
+    @Override
+    public List<Product> findByUnitPriceGreaterThanOrStockGreaterThan(int i, int i1) {
+        return productRepository.findByUnitPriceGreaterThanOrStockGreaterThan(200,2);
+    }
 
+    @Override
+    public List<Product> findByUnitPriceBetween(double minPrice, double maxPrice) {
+        return productRepository.findByUnitPriceBetween(minPrice,maxPrice);
+    }
 
+    @Override
+    public List<Product> findByUnitPriceGreaterThanAvg() {
+        return productRepository.findByUnitPriceGreaterThanAvg();
+    }
 
+    @Override
+    public List<Product> findByCategoryName(String books) {
+        return productRepository.findByCategoryName(books);
+    }
 
 
     private void productWithSameNameShouldNotExists(String name) {
