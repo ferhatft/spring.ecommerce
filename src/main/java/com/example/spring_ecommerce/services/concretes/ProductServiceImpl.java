@@ -2,6 +2,7 @@ package com.example.spring_ecommerce.services.concretes;
 
 
 import com.example.spring_ecommerce.core.types.BusinessException;
+import com.example.spring_ecommerce.core.types.ProductNotFoundException;
 import com.example.spring_ecommerce.entities.Brand;
 import com.example.spring_ecommerce.entities.Category;
 import com.example.spring_ecommerce.entities.Product;
@@ -66,6 +67,8 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void add(AddProductRequest request) {
 
+        productWithSameNameShouldNotExists(request.getName());
+
         Category category = new Category();
         category.setId(request.getCategoryId());
 
@@ -92,8 +95,7 @@ public class ProductServiceImpl implements ProductService {
         Product product = productRepository.findById(request.getId()).orElse(null);
 
         if (product == null) {
-            // TODO Handle product not found (e.g., log a warning or throw a custom exception later)
-            return;
+            throw new ProductNotFoundException(request.getId());
         }
 
         Category category = new Category();
@@ -172,7 +174,7 @@ public class ProductServiceImpl implements ProductService {
         Optional<Product> productWithSameName =
                 productRepository.findByName(name);
         if (productWithSameName.isPresent())
-            throw new BusinessException("Aynı isimde 2. ürün eklenemez");
+            throw new BusinessException("A second product with the same name cannot be added");
     }
 }
 

@@ -1,5 +1,6 @@
 package com.example.spring_ecommerce.services.concretes;
 
+import com.example.spring_ecommerce.core.types.SupplierProductNotFoundException;
 import com.example.spring_ecommerce.entities.Product;
 import com.example.spring_ecommerce.entities.Supplier;
 import com.example.spring_ecommerce.entities.SupplierProduct;
@@ -69,8 +70,7 @@ public class SupplierProductServiceImpl implements SupplierProductService {
         SupplierProduct supplierProduct = supplierProductRepository.findById(updateSupplierProductRequest.getId()).orElse(null);
 
         if (supplierProduct == null) {
-            // TODO Handle supplierProduct not found (e.g., log a warning or throw a custom exception later)
-            return;
+            throw new SupplierProductNotFoundException(updateSupplierProductRequest.getId());
         }
         Supplier supplier = new Supplier();
         supplier.setId(updateSupplierProductRequest.getSupplierId());

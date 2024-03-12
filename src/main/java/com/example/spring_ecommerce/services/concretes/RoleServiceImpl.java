@@ -1,5 +1,6 @@
 package com.example.spring_ecommerce.services.concretes;
 
+import com.example.spring_ecommerce.core.types.RoleNotFoundException;
 import com.example.spring_ecommerce.entities.Role;
 import com.example.spring_ecommerce.repositories.abstracts.RoleRepository;
 import com.example.spring_ecommerce.services.abstracts.RoleService;
@@ -57,8 +58,7 @@ public class RoleServiceImpl implements RoleService {
         Role role = roleRepository.findById(updateRoleRequest.getId()).orElse(null);
 
         if (role == null) {
-            // TODO Handle role not found (e.g., log a warning or throw a custom exception later)
-            return;
+            throw new RoleNotFoundException(updateRoleRequest.getId());
         }
 
         role.setName(updateRoleRequest.getName());

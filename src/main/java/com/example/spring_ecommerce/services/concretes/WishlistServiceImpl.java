@@ -1,5 +1,6 @@
 package com.example.spring_ecommerce.services.concretes;
 
+import com.example.spring_ecommerce.core.types.WishlistNotFoundException;
 import com.example.spring_ecommerce.entities.Product;
 import com.example.spring_ecommerce.entities.User;
 import com.example.spring_ecommerce.entities.Wishlist;
@@ -74,8 +75,7 @@ public class WishlistServiceImpl implements WishlistService {
         Wishlist wishlist = wishlistRepository.findById(updateWishlistRequest.getId()).orElse(null);
 
         if (wishlist == null) {
-            // TODO Handle wishlist not found (e.g., log a warning or throw a custom exception later)
-            return;
+            throw new WishlistNotFoundException(updateWishlistRequest.getId());
         }
 
         User user = new User();

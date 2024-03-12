@@ -1,5 +1,6 @@
 package com.example.spring_ecommerce.services.concretes;
 
+import com.example.spring_ecommerce.core.types.UserRoleNotFoundException;
 import com.example.spring_ecommerce.entities.*;
 import com.example.spring_ecommerce.repositories.abstracts.UserRoleRepository;
 import com.example.spring_ecommerce.services.abstracts.UserRoleService;
@@ -66,8 +67,7 @@ public class UserRoleServiceImpl implements UserRoleService {
         UserRole userRole = userRoleRepository.findById(updateUserRoleRequest.getId()).orElse(null);
 
         if (userRole == null) {
-            // TODO Handle userRole not found (e.g., log a warning or throw a custom exception later)
-            return;
+            throw new UserRoleNotFoundException(updateUserRoleRequest.getId());
         }
 
         User user = new User();

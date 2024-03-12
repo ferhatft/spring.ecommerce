@@ -1,5 +1,6 @@
 package com.example.spring_ecommerce.services.concretes;
 
+import com.example.spring_ecommerce.core.types.SupplierNotFoundException;
 import com.example.spring_ecommerce.entities.Supplier;
 import com.example.spring_ecommerce.entities.User;
 import com.example.spring_ecommerce.repositories.abstracts.SupplierRepository;
@@ -62,8 +63,7 @@ public class SupplierServiceImpl implements SupplierService {
         Supplier supplier = supplierRepository.findById(updateSupplierRequest.getId()).orElse(null);
 
         if (supplier == null) {
-            // TODO Handle supplier not found (e.g., log a warning or throw a custom exception later)
-            return;
+            throw new SupplierNotFoundException(updateSupplierRequest.getId());
         }
         User user = new User();
         user.setId(updateSupplierRequest.getUserId());

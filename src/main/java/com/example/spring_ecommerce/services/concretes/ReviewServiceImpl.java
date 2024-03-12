@@ -1,5 +1,6 @@
 package com.example.spring_ecommerce.services.concretes;
 
+import com.example.spring_ecommerce.core.types.ReviewNotFoundException;
 import com.example.spring_ecommerce.entities.*;
 import com.example.spring_ecommerce.repositories.abstracts.ReviewRepository;
 import com.example.spring_ecommerce.services.abstracts.ReviewService;
@@ -70,8 +71,7 @@ public class ReviewServiceImpl implements ReviewService {
         Review review = reviewRepository.findById(updateReviewRequest.getId()).orElse(null);
 
         if (review == null) {
-            // TODO Handle review not found (e.g., log a warning or throw a custom exception later)
-            return;
+            throw new ReviewNotFoundException(updateReviewRequest.getId());
         }
 
         Product product = new Product();
