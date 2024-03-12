@@ -14,18 +14,13 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UpdateCartProductRequest {
 
+    @Min(1)
+    private int id;
+
     @Min(0)
-    private  int id;
+    private int products;
 
-    @NotBlank(message = "Address name con not be empty")
-    private  String name;
+    @Min(0)
+    private int carts;
 
-    @Min(1)
-    private int districtId;
-
-    @Min(1)
-    private int userId;
-
-    @Max(300)
-    private String address_detail;
 }

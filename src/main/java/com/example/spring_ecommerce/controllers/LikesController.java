@@ -3,6 +3,9 @@ package com.example.spring_ecommerce.controllers;
 import com.example.spring_ecommerce.entities.City;
 import com.example.spring_ecommerce.entities.Likes;
 import com.example.spring_ecommerce.services.abstracts.LikesService;
+import com.example.spring_ecommerce.services.dtos.like.request.AddLikeRequest;
+import com.example.spring_ecommerce.services.dtos.like.request.UpdateLikeRequest;
+import com.example.spring_ecommerce.services.dtos.like.response.ListLikesResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +21,7 @@ public class LikesController {
 
 
     @GetMapping
-    public List<Likes> get(){
+    public List<ListLikesResponse> get(){
         return likesService.getAll();
     }
 
@@ -28,13 +31,13 @@ public class LikesController {
     }
 
     @PostMapping()
-    public void add(@RequestBody Likes likes){
-        likesService.add(likes);
+    public void add(@RequestBody AddLikeRequest request){
+        likesService.add(request);
     }
 
     @PutMapping
-    public void update(@RequestBody Likes likes) {
-        likesService.update(likes);
+    public void update(@RequestBody UpdateLikeRequest request) {
+        likesService.update(request);
     }
 
     @DeleteMapping("/{id}")

@@ -1,5 +1,7 @@
 package com.example.spring_ecommerce.services.dtos.cartProduct.response;
 
+import com.example.spring_ecommerce.entities.Product;
+import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +13,11 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ListCartProductsResponse {
 
-    private  String name;
+    @Min(0)
+    private int products;
+
+    @Min(0)
+    private int carts;
+
 
 }
