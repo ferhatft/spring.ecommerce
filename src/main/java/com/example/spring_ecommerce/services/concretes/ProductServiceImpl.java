@@ -1,11 +1,15 @@
 package com.example.spring_ecommerce.services.concretes;
 
 
+import com.example.spring_ecommerce.core.types.BrandNotFoundException;
 import com.example.spring_ecommerce.core.types.BusinessException;
+import com.example.spring_ecommerce.core.types.CategoryNotFoundException;
 import com.example.spring_ecommerce.core.types.ProductNotFoundException;
 import com.example.spring_ecommerce.entities.Brand;
 import com.example.spring_ecommerce.entities.Category;
 import com.example.spring_ecommerce.entities.Product;
+import com.example.spring_ecommerce.repositories.abstracts.BrandRepository;
+import com.example.spring_ecommerce.repositories.abstracts.CategoryRepository;
 import com.example.spring_ecommerce.repositories.abstracts.ProductRepository;
 import com.example.spring_ecommerce.services.abstracts.ProductService;
 
@@ -15,6 +19,7 @@ import com.example.spring_ecommerce.services.dtos.product.responses.GetMostSoldP
 import com.example.spring_ecommerce.services.dtos.product.responses.GetProductResponse;
 import com.example.spring_ecommerce.services.dtos.product.responses.ProductListResponse;
 
+import com.example.spring_ecommerce.services.mappers.ProductMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +34,8 @@ import java.util.Optional;
 @AllArgsConstructor
 @Service
 public class ProductServiceImpl implements ProductService {
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
+    private final ProductMapper mapper;
 
     @Override
     public List<ProductListResponse> getAll() {
@@ -66,28 +72,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void add(AddProductRequest request) {
-
         productWithSameNameShouldNotExists(request.getName());
-
-        Category category = new Category();
-        category.setId(request.getCategoryId());
-
-
-        Brand brand = new Brand();
-        brand.setId(request.getBrandId());
-
-        // Mapping -> Manual
-        // TODO: Auto Mapping
-        Product product = new Product();
-        product.setName(request.getName());
-        product.setStock(request.getStock());
-        product.setUnitPrice(request.getUnitPrice());
-        product.setCategory(category);
-        product.setBrand(brand);
-
-
+        Product product = mapper.productFromAddRequest(request);
         productRepository.save(product);
-
     }
 
     @Override
