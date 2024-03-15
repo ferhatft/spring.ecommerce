@@ -48,18 +48,18 @@ public class CartProcutsServiceImpl implements CartProductsService {
     @Override
     public void add(AddCartProductRequest request) {
 
-        Cart cart = new Cart();
-        cart.setId(request.getCarts());
+//        Cart cart = new Cart();
+//        cart.setId(request.getCarts());
+//
+//        Product product = new Product();
+//        product.setId(request.getProducts());
+//
+//        CartProducts cartProducts = new CartProducts();
+//        cartProducts.setCarts(cart);
+//        cartProducts.setProducts(product);
 
-        Product product = new Product();
-        product.setId(request.getProducts());
 
-        CartProducts cartProducts = new CartProducts();
-        cartProducts.setCarts(cart);
-        cartProducts.setProducts(product);
-
-
-//        CartProducts cartProducts = CartProductsMapper.INSTANCE.cartPoroductsFromAddRequest(request);
+        CartProducts cartProducts = CartProductsMapper.INSTANCE.cartProductsFromAddRequest(request);
         cartProductRepository.save(cartProducts);
 
     }
