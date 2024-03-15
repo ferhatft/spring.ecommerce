@@ -44,14 +44,9 @@ public class SupplierProductServiceImpl implements SupplierProductService {
 
     @Override
     public Optional<GetSupplierProductResponse> getByID(int id) {
-        SupplierProduct supplierProduct = supplierProductRepository.findById(id).orElse(null);
-
-        assert supplierProduct != null;
-        return Optional.of(new GetSupplierProductResponse(
-                supplierProduct.getId(),
-                supplierProduct.getSupplier().getUser().getFirstName(),
-                supplierProduct.getSupplier().getUser().getLastName(),
-                supplierProduct.getProduct().getName()));
+        SupplierProduct supplierProduct = findSupplierProductById(id);
+        GetSupplierProductResponse response = SupplierProductMapper.INSTANCE.getSupplierProductResponseFromSupplierProduct(supplierProduct);
+        return Optional.of(response);
     }
 
     @Override
@@ -62,11 +57,7 @@ public class SupplierProductServiceImpl implements SupplierProductService {
 
     @Override
     public void update(UpdateSupplierProductRequest updateSupplierProductRequest) {
-        SupplierProduct supplierProduct = supplierProductRepository.findById(updateSupplierProductRequest.getId()).orElse(null);
-
-        if (supplierProduct == null) {
-            throw new SupplierProductNotFoundException(updateSupplierProductRequest.getId());
-        }
+        SupplierProduct supplierProduct = findSupplierProductById(updateSupplierProductRequest.getId());
         Supplier supplier = new Supplier();
         supplier.setId(updateSupplierProductRequest.getSupplierId());
         Product product = new Product();
@@ -78,11 +69,19 @@ public class SupplierProductServiceImpl implements SupplierProductService {
 
     @Override
     public void delete(int id) {
+        if (!supplierProductRepository.existsById(id)) {
+            throw new SupplierProductNotFoundException(id);
+        }
         supplierProductRepository.deleteById(id);
     }
 
     @Override
     public List<ProductSupplierCountResponse> findProductsBySupplierCountGreaterThanOne() {
         return supplierProductRepository.findProductsBySupplierCountGreaterThanOne();
+    }
+
+    private SupplierProduct findSupplierProductById(int id) {
+        return supplierProductRepository.findById(id)
+                .orElseThrow(() -> new SupplierProductNotFoundException(id));
     }
 }

@@ -3,6 +3,7 @@ package com.example.spring_ecommerce.services.mappers;
 
 import com.example.spring_ecommerce.entities.User;
 import com.example.spring_ecommerce.services.dtos.user.requests.AddUserRequest;
+import com.example.spring_ecommerce.services.dtos.user.responses.GetUserResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -12,4 +13,6 @@ public interface UserMapper
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
     User userFromAddRequest(AddUserRequest request);
+
+    GetUserResponse getUserResponseFromUser(User user);
 }

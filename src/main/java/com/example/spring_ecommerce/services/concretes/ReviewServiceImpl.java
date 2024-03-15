@@ -43,15 +43,9 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public Optional<GetReviewResponse> getByID(int id) {
-        Review review = reviewRepository.findById(id).orElse(null);
-
-        assert review != null;
-        return Optional.of(new GetReviewResponse(
-                review.getId(),
-                review.getDetail(),
-                review.getProduct().getName(),
-                review.getUser().getFirstName(),
-                review.getUser().getLastName()));
+        Review review = findReviewById(id);
+        GetReviewResponse response = ReviewMapper.INSTANCE.getReviewResponseFromReview(review);
+        return Optional.of(response);
     }
 
     @Override
@@ -62,12 +56,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public void update(UpdateReviewRequest updateReviewRequest) {
-        Review review = reviewRepository.findById(updateReviewRequest.getId()).orElse(null);
-
-        if (review == null) {
-            throw new ReviewNotFoundException(updateReviewRequest.getId());
-        }
-
+        Review review = findReviewById(updateReviewRequest.getId());
         Product product = new Product();
         product.setId(updateReviewRequest.getProductId());
         User user = new User();
@@ -80,11 +69,19 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public void delete(int id) {
+        if (!reviewRepository.existsById(id)) {
+            throw new ReviewNotFoundException(id);
+        }
         reviewRepository.deleteById(id);
     }
 
     @Override
     public List<ReviewCountResponse> findUsersByReviewCountLessThanTwo() {
         return reviewRepository.findUsersByReviewCountLessThanTwo();
+    }
+
+    private Review findReviewById(int id) {
+        return reviewRepository.findById(id)
+                .orElseThrow(() -> new ReviewNotFoundException(id));
     }
 }

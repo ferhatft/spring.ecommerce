@@ -41,13 +41,9 @@ public class SupplierServiceImpl implements SupplierService {
 
     @Override
     public Optional<GetSupplierResponse> getByID(int id) {
-        Supplier supplier = supplierRepository.findById(id).orElse(null);
-
-        assert supplier != null;
-        return Optional.of(new GetSupplierResponse(
-                supplier.getId(),
-                supplier.getUser().getFirstName(),
-                supplier.getUser().getLastName()));
+        Supplier supplier = findSupplierById(id);
+        GetSupplierResponse response = SupplierMapper.INSTANCE.getSupplierResponseFromSupplier(supplier);
+        return Optional.of(response);
     }
 
     @Override
@@ -58,11 +54,7 @@ public class SupplierServiceImpl implements SupplierService {
 
     @Override
     public void update(UpdateSupplierRequest updateSupplierRequest) {
-        Supplier supplier = supplierRepository.findById(updateSupplierRequest.getId()).orElse(null);
-
-        if (supplier == null) {
-            throw new SupplierNotFoundException(updateSupplierRequest.getId());
-        }
+        Supplier supplier = findSupplierById(updateSupplierRequest.getId());
         User user = new User();
         user.setId(updateSupplierRequest.getUserId());
         supplier.setUser(user);
@@ -71,6 +63,14 @@ public class SupplierServiceImpl implements SupplierService {
 
     @Override
     public void delete(int id) {
+        if (!supplierRepository.existsById(id)) {
+            throw new SupplierNotFoundException(id);
+        }
         supplierRepository.deleteById(id);
+    }
+
+    private Supplier findSupplierById(int id) {
+        return supplierRepository.findById(id)
+                .orElseThrow(() -> new SupplierNotFoundException(id));
     }
 }

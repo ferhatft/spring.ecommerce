@@ -53,16 +53,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Optional<GetProductResponse> getByID(int id) {
-        Product product = productRepository.findById(id).orElse(null);
-
-        assert product != null;
-        return Optional.of(new GetProductResponse(
-                product.getId(),
-                product.getName(),
-                product.getStock(),
-                product.getUnitPrice(),
-                product.getCategory().getName(),
-                product.getBrand().getName()));
+        Product product = findProductById(id);
+        GetProductResponse response = ProductMapper.INSTANCE.getProductResponseFromProduct(product);
+        return Optional.of(response);
     }
 
     @Override
@@ -74,11 +67,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void update(UpdateProductRequest request) {
-        Product product = productRepository.findById(request.getId()).orElse(null);
-
-        if (product == null) {
-            throw new ProductNotFoundException(request.getId());
-        }
+        Product product = findProductById(request.getId());
 
         Category category = new Category();
         category.setId(request.getCategoryId());
@@ -96,8 +85,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void delete(int id) {
+        if (!productRepository.existsById(id)) {
+            throw new ProductNotFoundException(id);
+        }
         productRepository.deleteById(id);
     }
+
 
     @Override
     public GetMostSoldProductResponse findMostSoldProductLastMonth() {
@@ -157,6 +150,11 @@ public class ProductServiceImpl implements ProductService {
                 productRepository.findByName(name);
         if (productWithSameName.isPresent())
             throw new BusinessException("A second product with the same name cannot be added");
+    }
+
+    private Product findProductById(int id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new ProductNotFoundException(id));
     }
 }
 

@@ -45,16 +45,9 @@ public class WishlistServiceImpl implements WishlistService {
 
     @Override
     public Optional<GetWishlistResponse> getByID(int id) {
-        Wishlist wishlist = wishlistRepository.findById(id).orElse(null);
-
-        assert wishlist != null;
-        return Optional.of(new GetWishlistResponse(
-                wishlist.getId(),
-                wishlist.getEditDate(),
-                wishlist.getCurrentPrice(),
-                wishlist.getUser().getFirstName(),
-                wishlist.getUser().getLastName(),
-                wishlist.getProduct().getName()));
+        Wishlist wishlist = findWishlistById(id);
+        GetWishlistResponse response = WishlistMapper.INSTANCE.getWishlistResponseFromWishlist(wishlist);
+        return Optional.of(response);
     }
 
     @Override
@@ -65,11 +58,7 @@ public class WishlistServiceImpl implements WishlistService {
 
     @Override
     public void update(UpdateWishlistRequest updateWishlistRequest) {
-        Wishlist wishlist = wishlistRepository.findById(updateWishlistRequest.getId()).orElse(null);
-
-        if (wishlist == null) {
-            throw new WishlistNotFoundException(updateWishlistRequest.getId());
-        }
+        Wishlist wishlist = findWishlistById(updateWishlistRequest.getId());
 
         User user = new User();
         user.setId(updateWishlistRequest.getUserId());
@@ -84,6 +73,14 @@ public class WishlistServiceImpl implements WishlistService {
 
     @Override
     public void delete(int id) {
+        if (!wishlistRepository.existsById(id)) {
+            throw new WishlistNotFoundException(id);
+        }
         wishlistRepository.deleteById(id);
+    }
+
+    private Wishlist findWishlistById(int id) {
+        return wishlistRepository.findById(id)
+                .orElseThrow(() -> new WishlistNotFoundException(id));
     }
 }

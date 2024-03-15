@@ -39,12 +39,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Optional<GetCategoryResponse> getByID(int id) {
-        Category category = categoryRepository.findById(id).orElse(null);
-
-        assert category != null;
-        return Optional.of(new GetCategoryResponse(
-                category.getId(),
-                category.getName()));
+        Category category = findCategoryById(id);
+        GetCategoryResponse response = CategoryMapper.INSTANCE.getCategoryResponseFromCategory(category);
+        return Optional.of(response);
     }
 
     @Override
@@ -55,18 +52,16 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void update(UpdateCategoryRequest updateCategoryRequest) {
-        Category category = categoryRepository.findById(updateCategoryRequest.getId()).orElse(null);
-
-        if (category == null) {
-            throw new CategoryNotFoundException(updateCategoryRequest.getId());
-        }
-
+        Category category = findCategoryById(updateCategoryRequest.getId());
         category.setName(updateCategoryRequest.getName());
         categoryRepository.save(category);
     }
 
     @Override
     public void delete(int id) {
+        if (!categoryRepository.existsById(id)) {
+            throw new CategoryNotFoundException(id);
+        }
         categoryRepository.deleteById(id);
     }
 
@@ -86,5 +81,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     }
 
-
+    private Category findCategoryById(int id) {
+        return categoryRepository.findById(id)
+                .orElseThrow(() -> new CategoryNotFoundException(id));
+    }
 }

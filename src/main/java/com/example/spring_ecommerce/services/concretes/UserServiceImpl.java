@@ -42,14 +42,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<GetUserResponse> getByID(int id) {
-        User user = userRepository.findById(id).orElse(null);
-
-        assert user != null;
-        return Optional.of(new GetUserResponse(
-                user.getId(),
-                user.getFirstName(),
-                user.getLastName(),
-                user.getEmail()));
+        User user = findUserById(id);
+        GetUserResponse response = UserMapper.INSTANCE.getUserResponseFromUser(user);
+        return Optional.of(response);
     }
 
     @Override
@@ -65,11 +60,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void update(UpdateUserRequest updateUserRequest) {
-        User user = userRepository.findById(updateUserRequest.getId()).orElse(null);
-
-        if (user == null) {
-            throw new UserNotFoundException(updateUserRequest.getId());
-        }
+        User user = findUserById(updateUserRequest.getId());
 
         Optional<User> userWithSameEmail = userRepository.findByEmail(updateUserRequest.getEmail());
         if (userWithSameEmail.isPresent() && userWithSameEmail.get().getId() != updateUserRequest.getId()) {
@@ -86,6 +77,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(int id) {
+        if (!userRepository.existsById(id)) {
+            throw new UserNotFoundException(id);
+        }
         userRepository.deleteById(id);
     }
 
@@ -140,5 +134,8 @@ public class UserServiceImpl implements UserService {
         return response;
     }
 
-
+    private User findUserById(int id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id));
+    }
 }

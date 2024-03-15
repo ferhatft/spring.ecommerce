@@ -39,12 +39,9 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Optional<GetRoleResponse> getByID(int id) {
-        Role role = roleRepository.findById(id).orElse(null);
-
-        assert role != null;
-        return Optional.of(new GetRoleResponse(
-                role.getId(),
-                role.getName()));
+        Role role = findRoleById(id);
+        GetRoleResponse response = RoleMapper.INSTANCE.getRoleResponseFromRole(role);
+        return Optional.of(response);
     }
 
     @Override
@@ -55,19 +52,22 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public void update(UpdateRoleRequest updateRoleRequest) {
-        Role role = roleRepository.findById(updateRoleRequest.getId()).orElse(null);
-
-        if (role == null) {
-            throw new RoleNotFoundException(updateRoleRequest.getId());
-        }
-
+        Role role = findRoleById(updateRoleRequest.getId());
         role.setName(updateRoleRequest.getName());
         roleRepository.save(role);
     }
 
     @Override
     public void delete(int id) {
+        if (!roleRepository.existsById(id)) {
+            throw new RoleNotFoundException(id);
+        }
         roleRepository.deleteById(id);
+    }
+
+    private Role findRoleById(int id) {
+        return roleRepository.findById(id)
+                .orElseThrow(() -> new RoleNotFoundException(id));
     }
 }
 

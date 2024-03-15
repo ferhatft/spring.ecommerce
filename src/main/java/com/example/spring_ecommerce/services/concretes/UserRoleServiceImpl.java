@@ -41,14 +41,9 @@ public class UserRoleServiceImpl implements UserRoleService {
 
     @Override
     public Optional<GetUserRoleResponse> getByID(int id) {
-        UserRole userRole = userRoleRepository.findById(id).orElse(null);
-
-        assert userRole != null;
-        return Optional.of(new GetUserRoleResponse(
-                userRole.getId(),
-                userRole.getUser().getFirstName(),
-                userRole.getUser().getLastName(),
-                userRole.getRole().getName()));
+        UserRole userRole = findUserRoleById(id);
+        GetUserRoleResponse response = UserRoleMapper.INSTANCE.getUserRoleResponseFromUserRole(userRole);
+        return Optional.of(response);
     }
 
     @Override
@@ -59,12 +54,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 
     @Override
     public void update(UpdateUserRoleRequest updateUserRoleRequest) {
-        UserRole userRole = userRoleRepository.findById(updateUserRoleRequest.getId()).orElse(null);
-
-        if (userRole == null) {
-            throw new UserRoleNotFoundException(updateUserRoleRequest.getId());
-        }
-
+        UserRole userRole = findUserRoleById(updateUserRoleRequest.getId());
         User user = new User();
         user.setId(updateUserRoleRequest.getUserId());
         Role role = new Role();
@@ -76,6 +66,14 @@ public class UserRoleServiceImpl implements UserRoleService {
 
     @Override
     public void delete(int id) {
+        if (!userRoleRepository.existsById(id)) {
+            throw new UserRoleNotFoundException(id);
+        }
         userRoleRepository.deleteById(id);
+    }
+
+    private UserRole findUserRoleById(int id) {
+        return userRoleRepository.findById(id)
+                .orElseThrow(() -> new UserRoleNotFoundException(id));
     }
 }
