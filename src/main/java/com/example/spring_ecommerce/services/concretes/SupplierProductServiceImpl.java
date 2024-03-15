@@ -11,6 +11,7 @@ import com.example.spring_ecommerce.services.dtos.supplierproduct.requests.Updat
 import com.example.spring_ecommerce.services.dtos.supplierproduct.responses.GetSupplierProductResponse;
 import com.example.spring_ecommerce.services.dtos.supplierproduct.responses.ProductSupplierCountResponse;
 import com.example.spring_ecommerce.services.dtos.supplierproduct.responses.SupplierProductListResponse;
+import com.example.spring_ecommerce.services.mappers.SupplierProductMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,14 +23,14 @@ import java.util.Optional;
 @Service
 public class SupplierProductServiceImpl implements SupplierProductService {
 
-    private SupplierProductRepository supplierProductRepository;
+    private final SupplierProductRepository supplierProductRepository;
 
     @Override
     public List<SupplierProductListResponse> getAll() {
-        List<SupplierProduct> supplierProducts= supplierProductRepository.findAll();
+        List<SupplierProduct> supplierProducts = supplierProductRepository.findAll();
         List<SupplierProductListResponse> response = new ArrayList<>();
 
-        for (SupplierProduct supplierProduct: supplierProducts) {
+        for (SupplierProduct supplierProduct : supplierProducts) {
             SupplierProductListResponse dto = new SupplierProductListResponse(
                     supplierProduct.getId(),
                     supplierProduct.getSupplier().getUser().getFirstName(),
@@ -55,13 +56,7 @@ public class SupplierProductServiceImpl implements SupplierProductService {
 
     @Override
     public void add(AddSupplierProductRequest addSupplierProductRequest) {
-        Supplier supplier = new Supplier();
-        supplier.setId(addSupplierProductRequest.getSupplierId());
-        Product product = new Product();
-        product.setId(addSupplierProductRequest.getProductId());
-        SupplierProduct supplierProduct = new SupplierProduct();
-        supplierProduct.setSupplier(supplier);
-        supplierProduct.setProduct(product);
+        SupplierProduct supplierProduct = SupplierProductMapper.INSTANCE.supplierProductFromAddRequest(addSupplierProductRequest);
         supplierProductRepository.save(supplierProduct);
     }
 

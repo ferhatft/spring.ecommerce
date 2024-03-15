@@ -10,6 +10,7 @@ import com.example.spring_ecommerce.services.dtos.wishlist.requests.AddWishlistR
 import com.example.spring_ecommerce.services.dtos.wishlist.requests.UpdateWishlistRequest;
 import com.example.spring_ecommerce.services.dtos.wishlist.responses.GetWishlistResponse;
 import com.example.spring_ecommerce.services.dtos.wishlist.responses.WishlistListResponse;
+import com.example.spring_ecommerce.services.mappers.WishlistMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,14 +22,14 @@ import java.util.Optional;
 @Service
 public class WishlistServiceImpl implements WishlistService {
 
-    private WishlistRepository wishlistRepository;
+    private final WishlistRepository wishlistRepository;
 
     @Override
     public List<WishlistListResponse> getAll() {
         List<Wishlist> wishlists = wishlistRepository.findAll();
         List<WishlistListResponse> response = new ArrayList<>();
 
-        for (Wishlist wishlist: wishlists) {
+        for (Wishlist wishlist : wishlists) {
             WishlistListResponse dto = new WishlistListResponse(
                     wishlist.getId(),
                     wishlist.getEditDate(),
@@ -46,7 +47,7 @@ public class WishlistServiceImpl implements WishlistService {
     public Optional<GetWishlistResponse> getByID(int id) {
         Wishlist wishlist = wishlistRepository.findById(id).orElse(null);
 
-        assert wishlist!= null;
+        assert wishlist != null;
         return Optional.of(new GetWishlistResponse(
                 wishlist.getId(),
                 wishlist.getEditDate(),
@@ -58,15 +59,7 @@ public class WishlistServiceImpl implements WishlistService {
 
     @Override
     public void add(AddWishlistRequest addWishlistRequest) {
-        User user = new User();
-        user.setId(addWishlistRequest.getUserId());
-        Product product=new Product();
-        product.setId(addWishlistRequest.getProductId());
-        Wishlist wishlist = new Wishlist();
-        wishlist.setEditDate(addWishlistRequest.getEditDate());
-        wishlist.setCurrentPrice(addWishlistRequest.getCurrentPrice());
-        wishlist.setUser(user);
-        wishlist.setProduct(product);
+        Wishlist wishlist = WishlistMapper.INSTANCE.wishlistFromAddRequest(addWishlistRequest);
         wishlistRepository.save(wishlist);
     }
 
@@ -80,7 +73,7 @@ public class WishlistServiceImpl implements WishlistService {
 
         User user = new User();
         user.setId(updateWishlistRequest.getUserId());
-        Product product=new Product();
+        Product product = new Product();
         product.setId(updateWishlistRequest.getProductId());
         wishlist.setEditDate(updateWishlistRequest.getEditDate());
         wishlist.setCurrentPrice(updateWishlistRequest.getCurrentPrice());

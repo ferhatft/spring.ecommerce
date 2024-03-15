@@ -1,15 +1,13 @@
 package com.example.spring_ecommerce.services.dtos.supplierproduct.requests;
 
 import jakarta.validation.constraints.Min;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class AddSupplierProductRequest {
     @Min(1)
     private int supplierId;

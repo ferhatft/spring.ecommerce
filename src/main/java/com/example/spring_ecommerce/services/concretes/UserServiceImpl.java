@@ -9,6 +9,7 @@ import com.example.spring_ecommerce.services.dtos.user.requests.AddUserRequest;
 import com.example.spring_ecommerce.services.dtos.user.requests.UpdateUserRequest;
 import com.example.spring_ecommerce.services.dtos.user.responses.GetUserResponse;
 import com.example.spring_ecommerce.services.dtos.user.responses.UserListResponse;
+import com.example.spring_ecommerce.services.mappers.UserMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Override
     public List<UserListResponse> getAll() {
@@ -58,10 +59,7 @@ public class UserServiceImpl implements UserService {
             throw new BusinessException("Mail address has to be unique!");
         }
 
-        User user = new User();
-        user.setFirstName(addUserRequest.getFirstName());
-        user.setLastName(addUserRequest.getLastName());
-        user.setEmail(addUserRequest.getEmail());
+        User user = UserMapper.INSTANCE.userFromAddRequest(addUserRequest);
         userRepository.save(user);
     }
 

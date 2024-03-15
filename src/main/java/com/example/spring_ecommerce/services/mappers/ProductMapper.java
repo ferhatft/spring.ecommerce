@@ -3,7 +3,6 @@ package com.example.spring_ecommerce.services.mappers;
 
 import com.example.spring_ecommerce.entities.Product;
 import com.example.spring_ecommerce.services.dtos.product.requests.AddProductRequest;
-import com.example.spring_ecommerce.services.dtos.product.requests.UpdateProductRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;

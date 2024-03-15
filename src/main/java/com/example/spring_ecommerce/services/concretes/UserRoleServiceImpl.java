@@ -8,6 +8,7 @@ import com.example.spring_ecommerce.services.dtos.userrole.requests.AddUserRoleR
 import com.example.spring_ecommerce.services.dtos.userrole.requests.UpdateUserRoleRequest;
 import com.example.spring_ecommerce.services.dtos.userrole.responses.GetUserRoleResponse;
 import com.example.spring_ecommerce.services.dtos.userrole.responses.UserRoleListResponse;
+import com.example.spring_ecommerce.services.mappers.UserRoleMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,14 +20,14 @@ import java.util.Optional;
 @Service
 public class UserRoleServiceImpl implements UserRoleService {
 
-    private UserRoleRepository userRoleRepository;
+    private final UserRoleRepository userRoleRepository;
 
     @Override
     public List<UserRoleListResponse> getAll() {
         List<UserRole> userRoles = userRoleRepository.findAll();
         List<UserRoleListResponse> response = new ArrayList<>();
 
-        for (UserRole userRole: userRoles) {
+        for (UserRole userRole : userRoles) {
             UserRoleListResponse dto = new UserRoleListResponse(
                     userRole.getId(),
                     userRole.getUser().getFirstName(),
@@ -42,7 +43,7 @@ public class UserRoleServiceImpl implements UserRoleService {
     public Optional<GetUserRoleResponse> getByID(int id) {
         UserRole userRole = userRoleRepository.findById(id).orElse(null);
 
-        assert userRole!= null;
+        assert userRole != null;
         return Optional.of(new GetUserRoleResponse(
                 userRole.getId(),
                 userRole.getUser().getFirstName(),
@@ -52,13 +53,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 
     @Override
     public void add(AddUserRoleRequest addUserRoleRequest) {
-        User user = new User();
-        user.setId(addUserRoleRequest.getUserId());
-        Role role = new Role();
-        role.setId(addUserRoleRequest.getRoleId());
-        UserRole userRole= new UserRole();
-        userRole.setUser(user);
-        userRole.setRole(role);
+        UserRole userRole = UserRoleMapper.INSTANCE.userRoleFromAddRequest(addUserRoleRequest);
         userRoleRepository.save(userRole);
     }
 

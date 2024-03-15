@@ -9,6 +9,7 @@ import com.example.spring_ecommerce.services.dtos.review.requests.UpdateReviewRe
 import com.example.spring_ecommerce.services.dtos.review.responses.GetReviewResponse;
 import com.example.spring_ecommerce.services.dtos.review.responses.ReviewCountResponse;
 import com.example.spring_ecommerce.services.dtos.review.responses.ReviewListResponse;
+import com.example.spring_ecommerce.services.mappers.ReviewMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,14 +21,14 @@ import java.util.Optional;
 @Service
 public class ReviewServiceImpl implements ReviewService {
 
-    private ReviewRepository reviewRepository;
+    private final ReviewRepository reviewRepository;
 
     @Override
     public List<ReviewListResponse> getAll() {
         List<Review> reviews = reviewRepository.findAll();
         List<ReviewListResponse> response = new ArrayList<>();
 
-        for (Review review: reviews) {
+        for (Review review : reviews) {
             ReviewListResponse dto = new ReviewListResponse(
                     review.getId(),
                     review.getDetail(),
@@ -55,14 +56,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public void add(AddReviewRequest addReviewRequest) {
-        Product product = new Product();
-        product.setId(addReviewRequest.getProductId());
-        User user = new User();
-        user.setId(addReviewRequest.getUserId());
-        Review review = new Review();
-        review.setDetail(addReviewRequest.getDetail());
-        review.setProduct(product);
-        review.setUser(user);
+        Review review = ReviewMapper.INSTANCE.reviewFromAddRequest(addReviewRequest);
         reviewRepository.save(review);
     }
 

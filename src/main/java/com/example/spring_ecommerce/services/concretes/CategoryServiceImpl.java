@@ -8,6 +8,7 @@ import com.example.spring_ecommerce.services.dtos.category.requests.AddCategoryR
 import com.example.spring_ecommerce.services.dtos.category.requests.UpdateCategoryRequest;
 import com.example.spring_ecommerce.services.dtos.category.responses.CategoryListResponse;
 import com.example.spring_ecommerce.services.dtos.category.responses.GetCategoryResponse;
+import com.example.spring_ecommerce.services.mappers.CategoryMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,14 +20,14 @@ import java.util.Optional;
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
-    private CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
 
     @Override
     public List<CategoryListResponse> getAll() {
         List<Category> categories = categoryRepository.findAll();
         List<CategoryListResponse> response = new ArrayList<>();
 
-        for (Category category: categories) {
+        for (Category category : categories) {
             CategoryListResponse dto = new CategoryListResponse(
                     category.getId(),
                     category.getName());
@@ -48,8 +49,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void add(AddCategoryRequest addCategoryRequest) {
-        Category category = new Category();
-        category.setName(addCategoryRequest.getName());
+        Category category = CategoryMapper.INSTANCE.categoryFromAddRequest(addCategoryRequest);
         categoryRepository.save(category);
     }
 
@@ -75,7 +75,7 @@ public class CategoryServiceImpl implements CategoryService {
         List<Category> categories = categoryRepository.findAllCategoriesWithProducts();
         List<CategoryListResponse> response = new ArrayList<>();
 
-        for (Category category: categories) {
+        for (Category category : categories) {
             CategoryListResponse dto = new CategoryListResponse(
                     category.getId(),
                     category.getName());

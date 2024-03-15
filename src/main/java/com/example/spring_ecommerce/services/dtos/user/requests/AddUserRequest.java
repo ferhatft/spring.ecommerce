@@ -2,15 +2,13 @@ package com.example.spring_ecommerce.services.dtos.user.requests;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Email;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class AddUserRequest {
     @NotBlank(message = "First name cannot be blank")
     private String firstName;

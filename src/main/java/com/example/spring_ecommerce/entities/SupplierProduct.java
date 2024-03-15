@@ -4,12 +4,14 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Table(name = "supplier_products")
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@SuperBuilder
 public class SupplierProduct {
 
     @Column(name = "id")

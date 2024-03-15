@@ -1,15 +1,11 @@
 package com.example.spring_ecommerce.services.concretes;
 
 
-import com.example.spring_ecommerce.core.types.BrandNotFoundException;
 import com.example.spring_ecommerce.core.types.BusinessException;
-import com.example.spring_ecommerce.core.types.CategoryNotFoundException;
 import com.example.spring_ecommerce.core.types.ProductNotFoundException;
 import com.example.spring_ecommerce.entities.Brand;
 import com.example.spring_ecommerce.entities.Category;
 import com.example.spring_ecommerce.entities.Product;
-import com.example.spring_ecommerce.repositories.abstracts.BrandRepository;
-import com.example.spring_ecommerce.repositories.abstracts.CategoryRepository;
 import com.example.spring_ecommerce.repositories.abstracts.ProductRepository;
 import com.example.spring_ecommerce.services.abstracts.ProductService;
 
@@ -35,14 +31,13 @@ import java.util.Optional;
 @Service
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
-    private final ProductMapper mapper;
 
     @Override
     public List<ProductListResponse> getAll() {
         List<Product> products = productRepository.findAll();
         List<ProductListResponse> response = new ArrayList<>();
 
-        for (Product product: products) {
+        for (Product product : products) {
             ProductListResponse dto = new ProductListResponse(
                     product.getId(),
                     product.getName(),
@@ -73,7 +68,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void add(AddProductRequest request) {
         productWithSameNameShouldNotExists(request.getName());
-        Product product = mapper.productFromAddRequest(request);
+        Product product = ProductMapper.INSTANCE.productFromAddRequest(request);
         productRepository.save(product);
     }
 
@@ -138,12 +133,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> findByUnitPriceGreaterThanOrStockGreaterThan(int i, int i1) {
-        return productRepository.findByUnitPriceGreaterThanOrStockGreaterThan(200,2);
+        return productRepository.findByUnitPriceGreaterThanOrStockGreaterThan(200, 2);
     }
 
     @Override
     public List<Product> findByUnitPriceBetween(double minPrice, double maxPrice) {
-        return productRepository.findByUnitPriceBetween(minPrice,maxPrice);
+        return productRepository.findByUnitPriceBetween(minPrice, maxPrice);
     }
 
     @Override

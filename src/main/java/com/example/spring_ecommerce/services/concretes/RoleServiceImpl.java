@@ -8,6 +8,7 @@ import com.example.spring_ecommerce.services.dtos.role.requests.AddRoleRequest;
 import com.example.spring_ecommerce.services.dtos.role.requests.UpdateRoleRequest;
 import com.example.spring_ecommerce.services.dtos.role.responses.GetRoleResponse;
 import com.example.spring_ecommerce.services.dtos.role.responses.RoleListResponse;
+import com.example.spring_ecommerce.services.mappers.RoleMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,14 +20,14 @@ import java.util.Optional;
 @Service
 public class RoleServiceImpl implements RoleService {
 
-    private RoleRepository roleRepository;
+    private final RoleRepository roleRepository;
 
     @Override
     public List<RoleListResponse> getAll() {
         List<Role> roles = roleRepository.findAll();
         List<RoleListResponse> response = new ArrayList<>();
 
-        for (Role role: roles) {
+        for (Role role : roles) {
             RoleListResponse dto = new RoleListResponse(
                     role.getId(),
                     role.getName());
@@ -48,8 +49,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public void add(AddRoleRequest addRoleRequest) {
-        Role role = new Role();
-        role.setName(addRoleRequest.getName());
+        Role role = RoleMapper.INSTANCE.roleFromAddRequest(addRoleRequest);
         roleRepository.save(role);
     }
 

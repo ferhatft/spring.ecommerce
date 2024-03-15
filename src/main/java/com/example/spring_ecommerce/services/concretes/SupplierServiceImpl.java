@@ -9,6 +9,7 @@ import com.example.spring_ecommerce.services.dtos.supplier.requests.AddSupplierR
 import com.example.spring_ecommerce.services.dtos.supplier.requests.UpdateSupplierRequest;
 import com.example.spring_ecommerce.services.dtos.supplier.responses.GetSupplierResponse;
 import com.example.spring_ecommerce.services.dtos.supplier.responses.SupplierListResponse;
+import com.example.spring_ecommerce.services.mappers.SupplierMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,14 +21,14 @@ import java.util.Optional;
 @Service
 public class SupplierServiceImpl implements SupplierService {
 
-    private SupplierRepository supplierRepository;
+    private final SupplierRepository supplierRepository;
 
     @Override
     public List<SupplierListResponse> getAll() {
         List<Supplier> suppliers = supplierRepository.findAll();
         List<SupplierListResponse> response = new ArrayList<>();
 
-        for (Supplier supplier: suppliers) {
+        for (Supplier supplier : suppliers) {
             SupplierListResponse dto = new SupplierListResponse(
                     supplier.getId(),
                     supplier.getUser().getFirstName(),
@@ -42,7 +43,7 @@ public class SupplierServiceImpl implements SupplierService {
     public Optional<GetSupplierResponse> getByID(int id) {
         Supplier supplier = supplierRepository.findById(id).orElse(null);
 
-        assert supplier!= null;
+        assert supplier != null;
         return Optional.of(new GetSupplierResponse(
                 supplier.getId(),
                 supplier.getUser().getFirstName(),
@@ -51,10 +52,7 @@ public class SupplierServiceImpl implements SupplierService {
 
     @Override
     public void add(AddSupplierRequest addSupplierRequest) {
-        User user = new User();
-        user.setId(addSupplierRequest.getUserId());
-        Supplier supplier = new Supplier();
-        supplier.setUser(user);
+        Supplier supplier = SupplierMapper.INSTANCE.supplierFromAddRequest(addSupplierRequest);
         supplierRepository.save(supplier);
     }
 
