@@ -8,7 +8,7 @@ import com.example.spring_ecommerce.services.dtos.cartProduct.response.ListCartP
 import java.util.List;
 import java.util.Optional;
 
-public interface CartProductService {
+public interface CartProductsService {
 
     List<ListCartProductsResponse> getAll();
 

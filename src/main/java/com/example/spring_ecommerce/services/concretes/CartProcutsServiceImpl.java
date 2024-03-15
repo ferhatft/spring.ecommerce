@@ -1,15 +1,15 @@
 package com.example.spring_ecommerce.services.concretes;
 
-import com.example.spring_ecommerce.core.types.BrandNotFoundException;
 import com.example.spring_ecommerce.core.types.CartProductNotFoundException;
 import com.example.spring_ecommerce.entities.Cart;
 import com.example.spring_ecommerce.entities.CartProducts;
 import com.example.spring_ecommerce.entities.Product;
 import com.example.spring_ecommerce.repositories.abstracts.CartProductRepository;
-import com.example.spring_ecommerce.services.abstracts.CartProductService;
+import com.example.spring_ecommerce.services.abstracts.CartProductsService;
 import com.example.spring_ecommerce.services.dtos.cartProduct.request.AddCartProductRequest;
 import com.example.spring_ecommerce.services.dtos.cartProduct.request.UpdateCartProductRequest;
 import com.example.spring_ecommerce.services.dtos.cartProduct.response.ListCartProductsResponse;
+import com.example.spring_ecommerce.services.mappers.CartProductsMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,7 @@ import java.util.Optional;
 
 @AllArgsConstructor
 @Service
-public class CartProcutsServiceImpl implements CartProductService {
+public class CartProcutsServiceImpl implements CartProductsService {
 
     private CartProductRepository cartProductRepository;
     @Override
@@ -58,6 +58,8 @@ public class CartProcutsServiceImpl implements CartProductService {
         cartProducts.setCarts(cart);
         cartProducts.setProducts(product);
 
+
+//        CartProducts cartProducts = CartProductsMapper.INSTANCE.cartPoroductsFromAddRequest(request);
         cartProductRepository.save(cartProducts);
 
     }

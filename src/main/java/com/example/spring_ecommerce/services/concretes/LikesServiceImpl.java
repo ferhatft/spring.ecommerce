@@ -6,6 +6,7 @@ import com.example.spring_ecommerce.services.abstracts.LikesService;
 import com.example.spring_ecommerce.services.dtos.like.request.AddLikeRequest;
 import com.example.spring_ecommerce.services.dtos.like.request.UpdateLikeRequest;
 import com.example.spring_ecommerce.services.dtos.like.response.ListLikesResponse;
+import com.example.spring_ecommerce.services.mappers.LikesMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,10 @@ public class LikesServiceImpl implements LikesService {
 
     @Override
     public void add(AddLikeRequest request) {
+
+
+        Likes likes = LikesMapper.INSTANCE.likesFromAddRequest(request);
+        likesRepository.save(likes);
 
     }
 

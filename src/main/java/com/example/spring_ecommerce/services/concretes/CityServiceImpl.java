@@ -1,6 +1,7 @@
 package com.example.spring_ecommerce.services.concretes;
 
 import com.example.spring_ecommerce.core.types.CityNotFoundException;
+import com.example.spring_ecommerce.entities.Category;
 import com.example.spring_ecommerce.entities.City;
 import com.example.spring_ecommerce.entities.Country;
 import com.example.spring_ecommerce.repositories.abstracts.CityRepository;
@@ -8,6 +9,8 @@ import com.example.spring_ecommerce.services.abstracts.CityService;
 import com.example.spring_ecommerce.services.dtos.city.request.AddCityRequest;
 import com.example.spring_ecommerce.services.dtos.city.request.UpdateCityRequest;
 import com.example.spring_ecommerce.services.dtos.city.response.ListCityResponse;
+import com.example.spring_ecommerce.services.mappers.CategoryMapper;
+import com.example.spring_ecommerce.services.mappers.CityMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -45,16 +48,9 @@ public class CityServiceImpl implements CityService {
     @Override
     public void add(AddCityRequest request) {
 
-
-        // TODO: Check from db
-        Country country = new Country();
-        country.setId(request.getCountryId());
-
-        City city = new City();
-        city.setName(request.getName());
-        city.setCountry(country);
-
+        City city = CityMapper.INSTANCE.cityFromAddRequest(request);
         cityRepository.save(city);
+
     }
 
     @Override

@@ -2,12 +2,15 @@ package com.example.spring_ecommerce.services.concretes;
 
 import com.example.spring_ecommerce.core.types.BusinessException;
 import com.example.spring_ecommerce.core.types.CountryNotFoundException;
+import com.example.spring_ecommerce.entities.Category;
 import com.example.spring_ecommerce.entities.Country;
 import com.example.spring_ecommerce.repositories.abstracts.CountryRepository;
 import com.example.spring_ecommerce.services.abstracts.CountryService;
 import com.example.spring_ecommerce.services.dtos.country.request.AddCountryRequest;
 import com.example.spring_ecommerce.services.dtos.country.request.UpdateCountryRequest;
 import com.example.spring_ecommerce.services.dtos.country.response.ListCountryResponse;
+import com.example.spring_ecommerce.services.mappers.CategoryMapper;
+import com.example.spring_ecommerce.services.mappers.CountryMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -48,12 +51,7 @@ public class CountriesServiceImpl implements CountryService {
     @Override
     public void add(AddCountryRequest request) {
 
-        countryWithSameNameShouldNotExists(request.getName());
-
-        Country country = new Country();
-        country.setName(request.getName());
-
-
+        Country country = CountryMapper.INSTANCE.countryFromAddRequest(request);
         countryRepository.save(country);
 
     }

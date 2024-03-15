@@ -10,6 +10,7 @@ import com.example.spring_ecommerce.services.dtos.brand.request.AddBrandRequest;
 import com.example.spring_ecommerce.services.dtos.brand.request.UpdateBrandRequest;
 import com.example.spring_ecommerce.services.dtos.brand.response.ListBrandsResponse;
 import com.example.spring_ecommerce.services.dtos.country.response.ListCountryResponse;
+import com.example.spring_ecommerce.services.mappers.BrandMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -48,8 +49,11 @@ public class BrandServiceImpl implements BrandServices {
 
     @Override
     public void add(AddBrandRequest request) {
-        Brand brand = new Brand();
-        brand.setName(request.getName());
+//        Brand brand = new Brand();
+//        brand.setName(request.getName());
+
+
+        Brand brand = BrandMapper.INSTANCE.brandFromAddRequest(request);
 
         brandRepository.save(brand);
 

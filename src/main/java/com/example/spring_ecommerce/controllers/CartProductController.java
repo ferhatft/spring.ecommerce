@@ -1,7 +1,7 @@
 package com.example.spring_ecommerce.controllers;
 
 import com.example.spring_ecommerce.entities.CartProducts;
-import com.example.spring_ecommerce.services.abstracts.CartProductService;
+import com.example.spring_ecommerce.services.abstracts.CartProductsService;
 import com.example.spring_ecommerce.services.dtos.cartProduct.request.AddCartProductRequest;
 import com.example.spring_ecommerce.services.dtos.cartProduct.request.UpdateCartProductRequest;
 import com.example.spring_ecommerce.services.dtos.cartProduct.response.ListCartProductsResponse;
@@ -16,7 +16,7 @@ import java.util.Optional;
 @RequestMapping("/api/cart_products")
 @AllArgsConstructor
 public class CartProductController {
-    private CartProductService cartProductService;
+    private CartProductsService cartProductService;
 
 
     @GetMapping

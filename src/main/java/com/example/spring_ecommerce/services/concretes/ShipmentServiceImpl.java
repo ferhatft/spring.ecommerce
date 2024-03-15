@@ -2,6 +2,7 @@ package com.example.spring_ecommerce.services.concretes;
 
 import com.example.spring_ecommerce.core.types.ShipmentNotFoundException;
 import com.example.spring_ecommerce.entities.Country;
+import com.example.spring_ecommerce.entities.Payment;
 import com.example.spring_ecommerce.entities.Shipment;
 import com.example.spring_ecommerce.repositories.abstracts.ShipmentRepository;
 import com.example.spring_ecommerce.services.abstracts.ShipmentService;
@@ -9,6 +10,8 @@ import com.example.spring_ecommerce.services.dtos.country.response.ListCountryRe
 import com.example.spring_ecommerce.services.dtos.shipment.request.AddShipmentRequest;
 import com.example.spring_ecommerce.services.dtos.shipment.request.UpdateShipmentRequest;
 import com.example.spring_ecommerce.services.dtos.shipment.response.ListShipmentResponse;
+import com.example.spring_ecommerce.services.mappers.PaymentMapper;
+import com.example.spring_ecommerce.services.mappers.ShipmentMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -49,11 +52,13 @@ public class ShipmentServiceImpl implements ShipmentService {
     @Override
     public void add(AddShipmentRequest request) {
 
-        Shipment shipment = new Shipment();
+//        Shipment shipment = new Shipment();
+//
+//        shipment.setName(request.getName());
+//        shipment.setEstimateddelivery(request.getEstimateddelivery());
 
-        shipment.setName(request.getName());
-        shipment.setEstimateddelivery(request.getEstimateddelivery());
 
+        Shipment shipment = ShipmentMapper.INSTANCE.shipmentFromAddRequest(request);
         shipmentRepository.save(shipment);
     }
 

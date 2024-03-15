@@ -1,6 +1,7 @@
 package com.example.spring_ecommerce.services.concretes;
 
 import com.example.spring_ecommerce.core.types.PaymentNotFoundException;
+import com.example.spring_ecommerce.entities.District;
 import com.example.spring_ecommerce.entities.Likes;
 import com.example.spring_ecommerce.entities.Payment;
 import com.example.spring_ecommerce.entities.Shipment;
@@ -9,6 +10,8 @@ import com.example.spring_ecommerce.services.abstracts.PaymentService;
 import com.example.spring_ecommerce.services.dtos.payment.request.AddPaymentRequest;
 import com.example.spring_ecommerce.services.dtos.payment.request.UpdatePaymentRequest;
 import com.example.spring_ecommerce.services.dtos.payment.response.ListPaymentResponse;
+import com.example.spring_ecommerce.services.mappers.DistrictsMapper;
+import com.example.spring_ecommerce.services.mappers.PaymentMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -46,9 +49,14 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public void add(AddPaymentRequest request) {
 
-        Payment payment = new Payment();
-        payment.setPayment_type(request.getPayment_type());
-        payment.setStatus(request.getStatus());
+//        Payment payment = new Payment();
+//        payment.setPayment_type(request.getPayment_type());
+//        payment.setStatus(request.getStatus());
+
+
+
+        Payment payment = PaymentMapper.INSTANCE.paymentFromAddRequest(request);
+
 
         paymentRepository.save(payment);
 

@@ -5,12 +5,14 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "addresses")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@SuperBuilder
 public class Address {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

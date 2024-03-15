@@ -7,6 +7,7 @@ import com.example.spring_ecommerce.services.dtos.order.request.AddOrderRequest;
 import com.example.spring_ecommerce.services.dtos.order.request.UpdateOrderRequest;
 import com.example.spring_ecommerce.services.dtos.order.response.ListOrdersResponse;
 import com.example.spring_ecommerce.services.dtos.review.responses.ReviewListResponse;
+import com.example.spring_ecommerce.services.mappers.OrderMapper;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
 
@@ -51,24 +52,26 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void add(AddOrderRequest request) {
 
-        OrderDetails orderDetails1 = new OrderDetails();
-        List<OrderDetails>  orderDetails = new ArrayList<>();
-        orderDetails.add(orderDetails1);
+//        OrderDetails orderDetails1 = new OrderDetails();
+//        List<OrderDetails>  orderDetails = new ArrayList<>();
+//        orderDetails.add(orderDetails1);
+//
+//        User user = new User();
+//        user.setId(request.getUserId());
+//        Payment payment = new Payment();
+//        payment.setId(request.getPaymentId());
+//        Shipment shipment = new Shipment();
+//        shipment.setId(request.getShippmentId());
+//
+//
+//        Order order = new Order();
+//        order.setOrderDetails(orderDetails);
+//        order.setUser(user);
+//        order.setPaymentid(payment);
+//        order.setShippmentid(shipment);
 
-        User user = new User();
-        user.setId(request.getUserId());
-        Payment payment = new Payment();
-        payment.setId(request.getPaymentId());
-        Shipment shipment = new Shipment();
-        shipment.setId(request.getShippmentId());
 
-
-        Order order = new Order();
-        order.setOrderDetails(orderDetails);
-        order.setUser(user);
-        order.setPaymentid(payment);
-        order.setShippmentid(shipment);
-
+        Order order = OrderMapper.INSTANCE.orderFromAddRequest(request);
         orderRepository.save(order);
 
     }

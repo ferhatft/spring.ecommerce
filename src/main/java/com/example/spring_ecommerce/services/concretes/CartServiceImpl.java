@@ -11,6 +11,7 @@ import com.example.spring_ecommerce.services.dtos.cart.request.UpdateCartRequest
 import com.example.spring_ecommerce.services.dtos.cart.response.ListCartsResponse;
 import com.example.spring_ecommerce.services.dtos.category.responses.GetCategoryResponse;
 import com.example.spring_ecommerce.services.dtos.country.response.ListCountryResponse;
+import com.example.spring_ecommerce.services.mappers.CartMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -49,10 +50,12 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public void add(AddCartRequest request) {
-        Cart cart = new Cart();
-        cart.setCartdate(request.getCartdate());
+//        Cart cart = new Cart();
+//        cart.setCartdate(request.getCartdate());
 
 
+
+        Cart cart = CartMapper.INSTANCE.cartFromAddRequest(request);
         cartRepository.save(cart);
     }
 

@@ -1,6 +1,5 @@
-package com.example.spring_ecommerce.services.dtos.cartProduct.request;
+package com.example.spring_ecommerce.services.dtos.district.request;
 
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -12,14 +11,15 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddCartProductRequest {
-    @Min(1)
-    private  int id ;
+public class UpdateDistrictRequest {
 
-    @Min(1)
-    private int products;
+    @Min(0)
+    private  int id;
 
-    @Min(1)
-    private int carts;
+    @NotBlank(message = "District name con not be empty")
+    private  String name;
 
+
+    @Min(0)
+    private  int cityid;
 }

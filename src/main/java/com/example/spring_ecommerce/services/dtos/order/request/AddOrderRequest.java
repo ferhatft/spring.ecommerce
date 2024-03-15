@@ -31,6 +31,10 @@ public class AddOrderRequest {
 
     private LocalDateTime orderDate;
 
-    @Min(1)
-    private int orderDetails;
+    List<OrderDetails> orderDetails ;
+
+
+//    @Min(1)
+//    private int orderDetails;
+
 }
